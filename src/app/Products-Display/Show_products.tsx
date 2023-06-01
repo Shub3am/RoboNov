@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-key */
 import Image from "next/image";
-import styles from "../products.module.css";
+import styles from "./products.module.css";
 import Link from "next/link";
 type All_Products = {
   products: string[];
@@ -34,7 +34,10 @@ export default async function Show_products() {
           </div>
           <div className={styles.productPrice}>
             <p>{product.price}$</p>
-            <button>Buy Now</button>
+            <Link href="google.com">
+              <button>Buy Now</button>
+            </Link>
+            <button>Add to Cart</button>
           </div>
         </div>
       </Link>

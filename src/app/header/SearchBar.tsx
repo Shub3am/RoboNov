@@ -10,6 +10,7 @@ export default function SearchBar() {
   const [query, Setquery] = useState("");
 
   const NewSearchquery = (evt: inputValue): void => {
+    console.log(query.length);
     Setquery(evt.target.value);
   };
   return (
@@ -21,7 +22,7 @@ export default function SearchBar() {
         placeholder="Search a Product"
       />
 
-      <a href={query.length ? `/?query=${query}` : "#"}>
+      <a href={query.length ? `/shop/${query}` : "#"}>
         <FaSearchengin />
       </a>
     </div>

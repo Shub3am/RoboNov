@@ -3,7 +3,7 @@ import { useState } from "react";
 import { HiMenuAlt3 } from "react-icons/hi";
 import { CgCloseR } from "react-icons/cg";
 import styles from "./header.module.css";
-
+import Navigation from "./navigation";
 export default function mobileNav() {
   const [isOpen, setOpen] = useState(false);
   const changeMenuState = (): void => {
@@ -25,12 +25,7 @@ export default function mobileNav() {
           <CgCloseR onClick={changeMenuState} size={20} />
         </div>
         <div className={styles.mobilemenu}>
-          <nav>
-            <li>Home</li>
-            <li>Shop</li>
-            <li>About</li>
-            <li>Contact</li>
-          </nav>
+          <Navigation />
         </div>
       </div>
     </>

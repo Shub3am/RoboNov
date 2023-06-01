@@ -2,6 +2,8 @@ import Image from "next/image";
 import styles from "./header.module.css";
 import MobileNav from "./mobileNavigation";
 import SearchBar from "./SearchBar";
+import Cart from "./cart";
+import { AiOutlineShoppingCart } from "react-icons/ai";
 import Navigation from "./navigation";
 export default function Header() {
   return (
@@ -14,9 +16,11 @@ export default function Header() {
       </div>
       <div className={styles.header_searchbar}>
         <SearchBar />
+        <Cart />
       </div>
       <div className={styles.header_mobilenavigation}>
         <MobileNav />
+        <Cart />
       </div>
     </div>
   );

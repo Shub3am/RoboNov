@@ -39,7 +39,7 @@
   border: 0;
   padding: 0.5em;
 }
-.searchbarcontainer :nth-child(2) {
+.searchbarcontainer svg {
   color: black;
   transform: translateX(-1.5em);
 }
@@ -52,6 +52,24 @@
   }
   /* MOBILE-NAVIGATION ON DESKTOP SCREEN */
 }
+
+/* CART */
+.cart {
+  display: flex;
+  align-items: center;
+}
+.cartItem {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0;
+  transform: translate(-5px, -10px);
+  border-radius: 50%;
+  background: black;
+  width: 30px;
+  height: 30px;
+}
+/* CART */
 
 /* MOBILE RESPONSIVENESS */
 @media all and (max-width: 600px) {
@@ -84,6 +102,7 @@
   }
   .mobileNav {
     list-style: none;
+    z-index: 1000;
   }
 
   .mobilemenu {
