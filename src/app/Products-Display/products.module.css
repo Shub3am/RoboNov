@@ -3,11 +3,18 @@
 .showProducts {
   display: grid;
   grid-template-columns: 2fr 2fr 2fr 2fr;
+
   padding: 2em;
-  width: 95%;
+  width: 75%;
+  margin: auto;
   overflow: hidden;
   grid-template-rows: auto;
   justify-items: center;
+}
+.showProductstitle {
+  display: flex;
+  justify-content: center;
+  margin: 2em 0 0 0;
 }
 .productLink {
   text-decoration: none;
@@ -92,3 +99,50 @@
   }
 }
 /* MOBILE RESPONSIVENESS */
+
+/* PRODUCT BANNER CONFIGS */
+.banner {
+  margin: 1em 0;
+}
+.firstRow {
+  /* display: grid;
+  grid-template-columns: 1fr 1fr; */
+  width: 75%;
+  display: flex;
+  justify-content: center;
+  margin: auto;
+}
+.firstRowItem {
+  position: relative;
+  width: 100%;
+  height: 500px;
+}
+
+.secondRow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 75%;
+  margin: auto;
+}
+.secondRowItem {
+  position: relative;
+  width: 100%;
+  height: 350px;
+}
+.banneritem {
+  background: black;
+}
+.banneritem h2 {
+  position: absolute;
+  bottom: 10px;
+  right: 0;
+  left: 10px;
+  z-index: 1000;
+  color: white;
+  display: fixed;
+}
+.banneritem img {
+  opacity: 0.5;
+}
+/* PRODUCT BANNER CONFIGS */
