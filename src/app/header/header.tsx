@@ -1,5 +1,6 @@
 import Image from "next/image";
 import styles from "./header.module.css";
+import AccountBar from "./accountBar";
 import MobileNav from "./mobileNavigation";
 import SearchBar from "./SearchBar";
 import Cart from "./cart";
@@ -17,6 +18,7 @@ export default function Header() {
       <div className={styles.header_searchbar}>
         <SearchBar />
         <Cart />
+        <AccountBar />
       </div>
       <div className={styles.header_mobilenavigation}>
         <MobileNav />

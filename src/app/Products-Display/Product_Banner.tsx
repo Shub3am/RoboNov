@@ -5,7 +5,7 @@ import Link from "next/link";
 async function getTopProduct() {
   const data = await fetch(
     "https://dummyjson.com/products?limit=5&select=title,thumbnail",
-    { cache: "no-cache" }
+    { cache: "no-store" }
   ).then((res) => res.json());
   return data;
 }

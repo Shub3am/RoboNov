@@ -118,3 +118,16 @@
 }
 
 /* MOBILE RESPONSIVENESS */
+
+/* ACCOUNT BAR */
+.accountBarButton {
+  color: white;
+  text-decoration: none;
+  font-weight: 700;
+}
+.accountBarButtonContainer {
+  background: black;
+  padding: 1em;
+}
+
+/* ACCOUNT BAR */
