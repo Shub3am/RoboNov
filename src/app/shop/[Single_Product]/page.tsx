@@ -4,15 +4,11 @@ import styles from "./Single.module.css";
 //In this code, I am fetching two times the same, NextJS caches requests so it will only send one request
 
 export async function generateMetadata({ params }) {
-  const raw_data = await fetch("https://dummyjson.com/products").then((data) =>
-    data.json()
-  );
-  const data = raw_data.products.map(
-    (product: { title: string; description: string }) => {
-      return { title: product.title, description: product.description };
-    }
-  );
-  return data;
+  const raw_data = await fetch(
+    `https://dummyjson.com/products/${params.Single_Product}`
+  ).then((data) => data.json());
+
+  return { title: raw_data.title, description: raw_data.description };
 }
 
 export async function generateStaticParams() {

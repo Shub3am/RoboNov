@@ -1,9 +1,8 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/app/prisma";
-import { redirect } from "next/navigation";
 
-export async function POST(req) {
-  const Body = await req.json();
+export async function POST(Request: NextRequest) {
+  const Body = await Request.json();
 
   try {
     let saved_data = await prisma.users.create({
@@ -22,11 +21,11 @@ export async function POST(req) {
       created: true,
       id: saved_data.id,
     });
-  } catch (e) {
+  } catch (error: any) {
     return NextResponse.json({
       message: "Failed",
       error: "Already Exists",
-      targets: e.meta.target,
+      targets: error.meta.target,
       created: false,
     });
   }

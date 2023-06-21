@@ -3,13 +3,10 @@ import styles from "./header.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { VscAccount } from "react-icons/vsc";
+import handleLogOut from "@/app/Functions/handleLogOut";
 export default function accountBar() {
   const Router = useRouter();
   if (localStorage.getItem("User") !== null) {
-    function signOut() {
-      localStorage.removeItem("User");
-      Router.refresh();
-    }
     let User: { email: string; name: string; id: number } = JSON.parse(
       localStorage.getItem("User")
     );
@@ -22,7 +19,7 @@ export default function accountBar() {
         <hr></hr>
         <div>
           <Link href="/account">My Account</Link>
-          <button onClick={signOut}>Sign Out</button>
+          <button onClick={() => handleLogOut(Router)}>Sign Out</button>
         </div>
       </div>
     );

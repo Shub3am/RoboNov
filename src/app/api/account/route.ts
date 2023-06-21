@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/app/prisma";
-import bcrypt from "bcrypt";
+import bcrypt from "bcryptjs";
 
 export async function POST(request: Request) {
   let Body: { email: string; password: string };
@@ -20,6 +20,7 @@ export async function POST(request: Request) {
         Body.password,
         checkUser.password
       );
+      console.log(checkUser, checkPass);
       if (checkPass) {
         const { name, id, email } = checkUser;
         return NextResponse.json({

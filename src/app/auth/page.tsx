@@ -2,41 +2,21 @@
 import styles from "./auth.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { redirect } from "next/navigation";
-import { cache, useState } from "react";
-export default function auth(): React.ReactNode {
+import handleLogin from "@/app/Functions/handleLogin";
+import { useState } from "react";
+
+interface form {
+  target: { email: { value: string }; password: { value: string } };
+  preventDefault: Function;
+}
+export default function Login(): React.ReactNode {
   const Router = useRouter();
   const [error, setError] = useState(false);
-  const ValidateUser = async (formData: {
-    target: { email: { value: string }; password: { value: string } };
-    preventDefault: Function;
-  }): Promise<any> => {
-    formData.preventDefault();
-    let userEmail: string = formData.target.email.value;
-    let userPass: string = formData.target.password.value;
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: userEmail, password: userPass }),
-    };
-    const check = await fetch("/api/account", options);
-    let response: {
-      error: boolean;
-      UserData: { name: string; id: string; email: string };
-    } = await check.json();
-
-    if (!response.error) {
-      await localStorage.setItem(
-        "User",
-        JSON.stringify({
-          id: response.UserData.id,
-          name: response.UserData.name,
-          email: response.UserData.email,
-        })
-      );
-      Router.push("/account");
+  const ValidateUser = async (formData: form) => {
+    const Result = await handleLogin(formData, setError);
+    if (Result) {
+      Router.push("/dashboard");
     } else {
-      await setError(true);
       Router.refresh();
     }
   };

@@ -1,64 +1,33 @@
 "use client";
-import bcrypt from "bcryptjs";
 import styles from "../auth.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import { stringify } from "querystring";
-export default function auth(): React.ReactNode {
+import createAccountAPI from "@/app/Functions/handleRegister";
+
+interface form {
+  target: {
+    Name: { value: string };
+    Age: { value: number };
+    email: { value: string };
+    Phone: { value: Number };
+    password: { value: String };
+  };
+  preventDefault: Function;
+}
+
+export default function Register(): React.ReactNode {
   const Router = useRouter();
   const [EmailExists, setEmailExist] = useState(false);
   const [PhoneExists, setPhoneExist] = useState(false);
-  async function createAccount(formData: {
-    target: {
-      Name: { value: string };
-      Age: { value: number };
-      email: { value: string };
-      Phone: { value: Number };
-      password: { value: String };
-    };
-  }) {
-    formData.preventDefault();
-    let Input_Name = formData.target.Name.value;
-    let Input_Age = Number(formData.target.Age.value);
-    let Input_Email = formData.target.email.value.toLowerCase();
-    let Input_Phone = Number(formData.target.Phone.value);
-    const password = await bcrypt.hashSync(formData.target.password.value, 12);
-    setEmailExist(false);
-    setPhoneExist(false);
-
-    const options = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: Input_Name,
-        age: Input_Age,
-        email: Input_Email,
-        phone: Input_Phone,
-        password: password,
-      }),
-    };
-
-    const createAccountAPI = await fetch("/api/account/new", options).then(
-      (raw) => raw.json()
+  async function createAccount(formData: form) {
+    const Status = await createAccountAPI(
+      formData,
+      setEmailExist,
+      setPhoneExist
     );
-
-    if (createAccountAPI.created) {
-      await localStorage.setItem(
-        "User",
-        JSON.stringify({
-          id: createAccountAPI.id,
-          name: Input_Name,
-          email: Input_Email,
-        })
-      );
-      Router.push("/account");
-    } else {
-      if (createAccountAPI.targets.includes("email")) {
-        setEmailExist(true);
-      } else if (createAccountAPI.targets.includes("phone")) {
-        setPhoneExist(true);
-      }
+    if (Status == !undefined && Status) {
+      Router.push("/dashboard");
     }
   }
 
@@ -80,7 +49,7 @@ export default function auth(): React.ReactNode {
             id="password"
             name="password"
             required
-            min="8"
+            minLength="8"
           />
           {PhoneExists ? "Phone Number Already Exists" : ""}
           <label htmlFor="Phone">Phone:</label>
@@ -88,8 +57,8 @@ export default function auth(): React.ReactNode {
             type="number"
             id="Phone"
             name="Phone"
-            min="10"
-            max="10"
+            minLength="10"
+            maxLength="10"
             required
           />
           <button type="submit">Register</button>
