@@ -13,12 +13,7 @@ export default function Login(): React.ReactNode {
   const Router = useRouter();
   const [error, setError] = useState(false);
   const ValidateUser = async (formData: form) => {
-    const Result = await handleLogin(formData, setError);
-    if (Result) {
-      Router.push("/dashboard");
-    } else {
-      Router.refresh();
-    }
+    await handleLogin(formData, setError, Router); //Calling handleLogin Function which wil validate and perform Router functions
   };
   return (
     <div className={styles.container}>

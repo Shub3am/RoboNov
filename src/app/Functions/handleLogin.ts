@@ -9,7 +9,8 @@ type response = {
 
 export default async function handleLogin(
   formData: form,
-  setError: Function
+  setError: Function,
+  Router: { push: Function; refresh: Function }
 ): Promise<any> {
   formData.preventDefault();
   let userEmail: string = formData.target.email.value;
@@ -31,11 +32,9 @@ export default async function handleLogin(
         email: response.UserData.email,
       })
     );
-    return true; //After returning true, This will redirect to dashboard
-    // Router.push("/dashboard");
+    Router.push("/dashboard");
   } else {
     await setError(true);
-    return false;
-    // Router.refresh();
+    Router.refresh();
   }
 }
