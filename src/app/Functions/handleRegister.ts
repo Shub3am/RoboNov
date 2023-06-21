@@ -15,7 +15,8 @@ interface form {
 export default async function createAccountAPI(
   formData: form,
   setEmailExist: Function,
-  setPhoneExist: Function
+  setPhoneExist: Function,
+  Router: { push: Function }
 ) {
   formData.preventDefault();
   let Input_Name = formData.target.Name.value;
@@ -51,8 +52,7 @@ export default async function createAccountAPI(
         email: Input_Email,
       })
     );
-    return true; //After returning true, This will redirect to dashboard
-    // Router.push("/dashboard");
+    Router.push("/dashboard");
   } else {
     if (createAccountAPI.targets.includes("email")) {
       setEmailExist(true);

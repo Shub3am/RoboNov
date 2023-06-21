@@ -21,14 +21,7 @@ export default function Register(): React.ReactNode {
   const [EmailExists, setEmailExist] = useState(false);
   const [PhoneExists, setPhoneExist] = useState(false);
   async function createAccount(formData: form) {
-    const Status = await createAccountAPI(
-      formData,
-      setEmailExist,
-      setPhoneExist
-    );
-    if (Status == !undefined && Status) {
-      Router.push("/dashboard");
-    }
+    await createAccountAPI(formData, setEmailExist, setPhoneExist, Router); //Calling handleRegister Function which wil validate and perform Router actions
   }
 
   return (
