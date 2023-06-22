@@ -3,23 +3,24 @@ import styles from "./header.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { VscAccount } from "react-icons/vsc";
+import { signIn, signOut, useSession } from "next-auth/react";
 import handleLogOut from "@/app/Functions/handleLogOut";
 export default function accountBar() {
+  const { data, status } = useSession();
+  console.log(status, data);
   const Router = useRouter();
-  if (localStorage.getItem("User") !== null) {
-    let User: { email: string; name: string; id: number } = JSON.parse(
-      localStorage.getItem("User")
-    );
+  if (status == "authenticated") {
+    const { name, email } = data.user;
     return (
       <div>
         <h2>
-          {User.id}
+          {name}
           <VscAccount />
         </h2>
         <hr></hr>
         <div>
           <Link href="/account">My Account</Link>
-          <button onClick={() => handleLogOut(Router)}>Sign Out</button>
+          <button onClick={() => signOut()}>Sign Out</button>
         </div>
       </div>
     );

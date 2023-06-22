@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import handleLogin from "@/app/Functions/handleLogin";
 import { useState } from "react";
+import { signIn } from "next-auth/react";
 
 interface form {
   target: { email: { value: string }; password: { value: string } };
@@ -13,7 +14,13 @@ export default function Login(): React.ReactNode {
   const Router = useRouter();
   const [error, setError] = useState(false);
   const ValidateUser = async (formData: form) => {
-    await handleLogin(formData, setError, Router); //Calling handleLogin Function which wil validate and perform Router functions
+    await signIn("credentials", {
+      email: formData.target.email.value,
+      password: formData.target.password.value,
+      redirect: true,
+      callbackUrl: "/",
+    });
+    // await handleLogin(formData, setError, Router); //Calling handleLogin Function which wil validate and perform Router functions
   };
   return (
     <div className={styles.container}>

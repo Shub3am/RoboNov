@@ -1,7 +1,9 @@
 import { NextResponse } from "next/server";
 import { prisma } from "@/app/prisma";
 import bcrypt from "bcryptjs";
-
+export async function GET() {
+  return NextResponse.json("Main route");
+}
 export async function POST(request: Request) {
   let Body: { email: string; password: string };
   try {
