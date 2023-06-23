@@ -17,7 +17,6 @@ export default function accountBar() {
           {name}
           <VscAccount />
         </h2>
-        <hr></hr>
         <div>
           <Link href="/account">My Account</Link>
           <button onClick={() => signOut()}>Sign Out</button>

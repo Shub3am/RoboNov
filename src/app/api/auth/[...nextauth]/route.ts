@@ -53,7 +53,8 @@ const handler = NextAuth({
           const { name, id, email } = Result.UserData;
           return { name, id, email };
         } else {
-          return null;
+          // return null;
+          throw new Error("Password Wrong");
           // You can also Reject this callback with an Error thus the user will be sent to the error page with the error message as a query parameter
         }
       },

@@ -14,13 +14,19 @@ export default function Login(): React.ReactNode {
   const Router = useRouter();
   const [error, setError] = useState(false);
   const ValidateUser = async (formData: form) => {
-    await signIn("credentials", {
+    const res = await signIn("credentials", {
       email: formData.target.email.value,
       password: formData.target.password.value,
-      redirect: true,
-      callbackUrl: "/",
+      redirect: false,
+      callbackUrl: "/api/auth/session",
     });
-    // await handleLogin(formData, setError, Router); //Calling handleLogin Function which wil validate and perform Router functions
+    console.log(res);
+    if (res.error !== null) {
+      setError(true);
+      Router.refresh();
+    } else {
+      Router.push(String(res.url));
+    }
   };
   return (
     <div className={styles.container}>
