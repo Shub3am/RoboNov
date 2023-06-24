@@ -4,13 +4,10 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { VscAccount } from "react-icons/vsc";
 import { signIn, signOut, useSession } from "next-auth/react";
-import handleLogOut from "@/app/Functions/handleLogOut";
 export default function accountBar() {
-  const { data, status } = useSession();
-  console.log(status, data);
-  const Router = useRouter();
+  const { data: Session, status } = useSession();
   if (status == "authenticated") {
-    const { name, email } = data.user;
+    const { name, email } = Session.user;
     return (
       <div>
         <h2>
@@ -18,7 +15,7 @@ export default function accountBar() {
           <VscAccount />
         </h2>
         <div>
-          <Link href="/account">My Account</Link>
+          <Link href="/dashboard">My Account</Link>
           <button onClick={() => signOut()}>Sign Out</button>
         </div>
       </div>
@@ -26,9 +23,9 @@ export default function accountBar() {
   } else {
     return (
       <div className={styles.accountBarButtonContainer}>
-        <Link href="/auth" className={styles.accountBarButton}>
+        <button onClick={() => signIn()} className={styles.accountBarButton}>
           Sign In
-        </Link>
+        </button>
       </div>
     );
   }
