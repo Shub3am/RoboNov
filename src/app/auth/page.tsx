@@ -15,22 +15,24 @@ export default function Login(): React.ReactNode {
   const Router = useRouter();
   const [error, setError] = useState(false);
   if (status == "authenticated") {
-    Router.push("/dashboard");
+    redirect("/dashboard");
   } else {
     const ValidateUser = async (formData: form) => {
       formData.preventDefault();
-      const res = await signIn("credentials", {
+      const res: {
+        error: string | null;
+        status: number;
+        ok: boolean;
+        url: string;
+      } = await signIn("credentials", {
         email: formData.target.email.value,
         password: formData.target.password.value,
         redirect: false,
         callbackUrl: "/dashboard",
       });
-      console.log(res);
       if (res.error !== null) {
         setError(true);
         Router.refresh();
-      } else {
-        Router.push("/dashboard");
       }
     };
     return (

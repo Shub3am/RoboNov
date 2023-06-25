@@ -4,10 +4,9 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 export default function Account() {
   const { data: Session, status } = useSession();
+  console.log(status);
   if (status == "authenticated") {
-    console.log(Session);
-    let name = "she";
-    return <h1>Welcome {name}, You Are In!</h1>;
+    return <h1>Welcome {Session.user.name}, You Are In!</h1>;
   } else {
     redirect("/auth");
   }
