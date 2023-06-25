@@ -14,29 +14,30 @@ export default function Login(): React.ReactNode {
   const { data: Session, status } = useSession();
   const Router = useRouter();
   const [error, setError] = useState(false);
-  const ValidateUser = async (formData: form) => {
-    const res = await signIn("credentials", {
-      email: formData.target.email.value,
-      password: formData.target.password.value,
-      redirect: false,
-      callbackUrl: "/dashboard",
-    });
-    console.log(res);
-    if (res.error !== null) {
-      setError(true);
-      Router.refresh();
-    } else {
-      Router.push(String(res.url));
-    }
-  };
   if (status == "authenticated") {
-    redirect("dashboard");
+    Router.push("/dashboard");
   } else {
+    const ValidateUser = async (formData: form) => {
+      formData.preventDefault();
+      const res = await signIn("credentials", {
+        email: formData.target.email.value,
+        password: formData.target.password.value,
+        redirect: false,
+        callbackUrl: "/dashboard",
+      });
+      console.log(res);
+      if (res.error !== null) {
+        setError(true);
+        Router.refresh();
+      } else {
+        Router.push("/dashboard");
+      }
+    };
     return (
       <div className={styles.container}>
         {error ? "Wrong Password or Email" : ""}
         <h1>Login</h1>
-        <form className={styles.authForm} onSubmit={ValidateUser} method="POST">
+        <form className={styles.authForm} onSubmit={ValidateUser}>
           <label htmlFor="email">Email:</label>
           <input
             type="email"

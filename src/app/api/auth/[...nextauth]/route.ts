@@ -2,6 +2,7 @@ import NextAuth from "next-auth/next";
 import CredentialsProvider from "next-auth/providers/credentials";
 import { prisma } from "@/app/prisma";
 import bcrypt from "bcryptjs";
+import { encryptJWT } from "@/app/lib/jwt";
 const handler = NextAuth({
   providers: [
     CredentialsProvider({
@@ -48,10 +49,10 @@ const handler = NextAuth({
           }
         }
         const Result = await checkCredentials();
-        console.log(Result, "-----reseult");
         if (Result?.UserData) {
           const { name, id, email } = Result.UserData;
-          return { name, id, email };
+          const token = encryptJWT(Result.UserData);
+          return { ...Result.UserData, token };
         } else {
           // return null;
           throw new Error("Password Wrong");
