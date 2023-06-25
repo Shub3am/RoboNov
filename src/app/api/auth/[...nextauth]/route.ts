@@ -51,8 +51,8 @@ const handler = NextAuth({
         const Result = await checkCredentials();
         if (Result?.UserData) {
           const { name, id, email } = Result.UserData;
-          const token = encryptJWT(Result.UserData);
-          return { ...Result.UserData, token };
+          const Token = await encryptJWT(Result.UserData);
+          return { ...Result.UserData, accessToken: Token };
         } else {
           // return null;
           throw new Error("Password Wrong");
@@ -64,6 +64,15 @@ const handler = NextAuth({
   session: {
     strategy: "jwt",
     maxAge: 60 * 60 * 24, //24Hours Expiry
+  },
+  callbacks: {
+    async jwt({ token, user }) {
+      return { ...token, ...user };
+    },
+    async session({ session, token }) {
+      session.user = token;
+      return session;
+    },
   },
   pages: { signIn: "/auth", newUser: "/auth/register" },
 });
