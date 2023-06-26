@@ -1,5 +1,7 @@
 "use client";
 import bcrypt from "bcryptjs";
+import { signIn } from "next-auth/react";
+import { redirect } from "next/navigation";
 
 interface form {
   target: {
@@ -40,19 +42,19 @@ export default async function createAccountAPI(
   };
 
   const createAccountAPI = await fetch("/api/account/new", options).then(
-    (raw) => raw.json()
+    (raw) => {
+      return raw.json();
+    }
   );
 
   if (createAccountAPI.created) {
-    await localStorage.setItem(
-      "User",
-      JSON.stringify({
-        id: createAccountAPI.id,
-        name: Input_Name,
-        email: Input_Email,
-      })
-    );
-    Router.push("/dashboard");
+    await signIn("credentials", {
+      email: Input_Email,
+      password: formData.target.password.value,
+      redirect: false,
+      callbackUrl: "/dashboard",
+    });
+    redirect("/dashboard");
   } else {
     if (createAccountAPI.targets.includes("email")) {
       setEmailExist(true);
