@@ -1,24 +1,26 @@
 "use client";
 import styles from "./header.module.css";
-import { useEffect, useState, useSyncExternalStore } from "react";
-
+import { useSession } from "next-auth/react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
-
+async function getCart() {
+  const cart = await fetch("/api/account/cart", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ id: Session.user.cartId }),
+  }).then((res) => res.json());
+  return cart.length;
+}
 export default function cart() {
-  // const [cartTotal, setCartTotal] = useState(localStorage.getItem("cart"));
-  // useEffect(() => {
-  //   if (Boolean(localStorage.getItem("cart"))) {
-  //     setCartTotal(localStorage.getItem("cart"));
-  //   } else {
-  //     localStorage.setItem("cart", 0);
-  //   }
-  // }, [cartTotal]);
-
+  const { data: Session, status } = useSession();
+  let cartLength = 0;
+  if (status == "authenticated") {
+    const cartLength = getCart();
+  }
   return (
     <div className={styles.cart}>
       <AiOutlineShoppingCart size={25} />
       <div className={styles.cartItem}>
-        <p>0</p>
+        <p>{cartLength ? cartLength : "0"}</p>
       </div>
     </div>
   );

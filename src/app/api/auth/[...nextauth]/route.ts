@@ -25,18 +25,22 @@ const handler = NextAuth({
               //checking if email and password exists on Body or not
               const checkUser = await prisma.users.findUniqueOrThrow({
                 where: { email: email },
+                include: { cart: true },
               });
+              console.log(checkUser);
               const checkPass = await bcrypt.compareSync(
                 password,
                 checkUser.password
               );
               if (checkPass) {
                 const { name, id, email } = checkUser;
+                const cartId = checkUser.cart.id;
                 return {
                   UserData: {
                     name,
                     id,
                     email,
+                    cartId,
                   },
                   error: false,
                 };
@@ -50,7 +54,6 @@ const handler = NextAuth({
         }
         const Result = await checkCredentials();
         if (Result?.UserData) {
-          const { name, id, email } = Result.UserData;
           const Token = await encryptJWT(Result.UserData);
           return { ...Result.UserData, accessToken: Token };
         } else {

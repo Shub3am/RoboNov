@@ -20,4 +20,14 @@ model users {
   age      Int
   phone    BigInt @unique
   password String @db.VarChar(255)
+  cart  cart?
+  
+
+}
+
+model cart {
+  id       Int    @id @default(autoincrement())
+  productid String[]
+  user_id Int @unique
+  user users @relation(fields: [user_id], references: [id])
 }
