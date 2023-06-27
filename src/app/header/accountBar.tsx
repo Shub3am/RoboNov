@@ -23,9 +23,9 @@ export default function accountBar() {
   } else {
     return (
       <div className={styles.accountBarButtonContainer}>
-        <button onClick={() => signIn()} className={styles.accountBarButton}>
-          Sign In
-        </button>
+        <Link href="/auth">
+          <button className={styles.accountBarButton}>Sign In</button>
+        </Link>
       </div>
     );
   }

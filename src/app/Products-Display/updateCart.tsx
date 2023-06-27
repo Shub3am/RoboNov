@@ -1,26 +1,49 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { prisma } from "@/app/prisma";
-async function updateCart(productId, Session, status) {
+import { useRouter } from "next/navigation";
+import Link from "next/link";
+async function updateCart(productId, cartId, status, Router) {
   if (status == "authenticated") {
-    await prisma.cart.update({ where: { id: Session.user.cartId } });
+    let result = await fetch("/api/cart/updatecart", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        productId: productId,
+        cartId: cartId,
+      }),
+    }).then((res) => res.json());
+
+    if (result.success) {
+      Router.refresh();
+    } else {
+      Router.push("/error");
+    }
   }
 }
 
 export default function updateCartButton({
   productId,
 }): React.ReactComponentElement<any> {
+  const Router = useRouter();
   const { data: Session, status } = useSession();
-  console.log(productId);
   if (status == "authenticated") {
     const { cartId } = Session.user;
-    console.log(cartId);
+    return (
+      <>
+        <button
+          onClick={() =>
+            updateCart(productId, Session.user.cartId, status, Router)
+          }
+        >
+          Add to Cart
+        </button>
+      </>
+    );
+  } else {
+    return (
+      <Link href="/auth">
+        <button>Add to Cart</button>
+      </Link>
+    );
   }
-  return (
-    <>
-      <button onClick={updateCart(productId, Session, status)}>
-        Add to Cart
-      </button>
-    </>
-  );
 }
