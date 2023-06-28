@@ -10,7 +10,6 @@ export default function SearchBar() {
   const [query, Setquery] = useState("");
 
   const NewSearchquery = (evt: inputValue): void => {
-    console.log(query.length);
     Setquery(evt.target.value);
   };
   return (

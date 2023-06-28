@@ -15,7 +15,6 @@ export async function POST(Request: NextRequest) {
       },
       select: { id: true },
     });
-    console.log(saved_data);
     await prisma.cart.create({ data: { user_id: saved_data.id } });
     await prisma.users.findMany({ include: { cart: true } });
     return NextResponse.json({

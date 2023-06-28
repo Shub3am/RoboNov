@@ -13,13 +13,12 @@ export async function POST(request: NextRequest) {
         data: { productid: { push: String(body.productId) } },
         select: { productid: true },
       });
-      console.log(updateCart);
+
       return NextResponse.json({
         message: "Product Added to Cart",
         success: true,
       });
     } catch (err) {
-      console.log(err);
       return NextResponse.json({
         message: "Server Error",
         success: false,

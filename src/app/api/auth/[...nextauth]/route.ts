@@ -17,7 +17,6 @@ const handler = NextAuth({
         password: { label: "Password", type: "password" },
       },
       async authorize(credentials: { email: string; password: string }, req) {
-        console.log(credentials);
         const { email, password } = credentials;
         async function checkCredentials() {
           try {
@@ -27,7 +26,7 @@ const handler = NextAuth({
                 where: { email: email },
                 include: { cart: true },
               });
-              console.log(checkUser);
+
               const checkPass = await bcrypt.compareSync(
                 password,
                 checkUser.password
