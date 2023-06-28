@@ -25,6 +25,7 @@ export default function updateCartButton({
   productId,
 }): React.ReactComponentElement<any> {
   const Router = useRouter();
+
   const { data: Session, status } = useSession();
   if (status == "authenticated") {
     const { cartId } = Session.user;

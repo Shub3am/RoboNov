@@ -2,7 +2,7 @@
 import Image from "next/image";
 import styles from "./products.module.css";
 import Product_Banner from "./Product_Banner";
-import UpdateCartButton from "./updateCart";
+import UpdateCartButton from "@/app/lib/updateCart";
 import Link from "next/link";
 type All_Products = {
   products: string[];
@@ -40,7 +40,7 @@ export default async function Show_products() {
           <div className={styles.productPrice}>
             <p>{product.price}$</p>
 
-            <Link href="okmamu">
+            <Link href="/dashboard">
               <button>Buy Now</button>
             </Link>
             <UpdateCartButton productId={product.id} />

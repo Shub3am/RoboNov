@@ -8,6 +8,7 @@ async function getCart(cartId: number, setCartLength: Function) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id: cartId }),
+    cache: "no-store",
   });
   const cart = await cartAPI.json();
   setCartLength(cart.length);
