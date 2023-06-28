@@ -1,6 +1,6 @@
 import Image from "next/image";
 import styles from "./Single.module.css";
-
+import UpdateCartButton from "@/app/lib/updateCart";
 //In this code, I am fetching two times the same, NextJS caches requests so it will only send one request
 
 export async function generateMetadata({ params }) {
@@ -40,6 +40,7 @@ export default async function Main({ params }) {
         <h4>{singleProduct.description}</h4>
         <div className={styles.productprice}>
           <h1>Price: {singleProduct.price}$</h1>
+          <UpdateCartButton productId={singleProduct.id} />
           <button>Buy Now</button>
         </div>
       </div>

@@ -2,7 +2,14 @@
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-async function updateCart(productId, cartId, status, Router) {
+import { useState } from "react";
+async function updateCart(
+  productId: number,
+  cartId: number,
+  status: string,
+  Router: Function,
+  setError: Function
+) {
   if (status == "authenticated") {
     let result = await fetch("/api/cart/updatecart", {
       method: "POST",
@@ -16,7 +23,7 @@ async function updateCart(productId, cartId, status, Router) {
     if (result.success) {
       Router.refresh();
     } else {
-      Router.push("/error");
+      setError(result.message);
     }
   }
 }
@@ -25,15 +32,16 @@ export default function updateCartButton({
   productId,
 }): React.ReactComponentElement<any> {
   const Router = useRouter();
-
   const { data: Session, status } = useSession();
+  const [error, setError] = useState("");
   if (status == "authenticated") {
     const { cartId } = Session.user;
     return (
       <>
+        {error}
         <button
           onClick={() =>
-            updateCart(productId, Session.user.cartId, status, Router)
+            updateCart(productId, Session.user.cartId, status, Router, setError)
           }
         >
           Add to Cart
