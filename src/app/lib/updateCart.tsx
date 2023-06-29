@@ -3,11 +3,15 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { useState } from "react";
+interface Router {
+  refresh: Function;
+  push: Function;
+}
 async function updateCart(
   productId: number,
   cartId: number,
   status: string,
-  Router: Function,
+  Router: Router,
   setError: Function
 ) {
   if (status == "authenticated") {
