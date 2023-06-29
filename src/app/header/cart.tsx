@@ -1,6 +1,7 @@
 "use client";
 import styles from "./header.module.css";
 import { useSession } from "next-auth/react";
+
 import { useEffect, useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 async function getCart(cartId: number, setCartLength: Function) {

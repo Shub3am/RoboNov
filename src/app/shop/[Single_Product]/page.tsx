@@ -30,7 +30,7 @@ export default async function Main({ params }) {
     <div className={styles.container}>
       <div className={styles.imagecontainer}>
         <Image
-          src={singleProduct.images[0]}
+          src={singleProduct.thumbnail}
           alt={singleProduct.title}
           fill={true}
         />

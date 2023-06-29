@@ -28,7 +28,8 @@
     "**/*.ts",
     "**/*.tsx",
     ".next/types/**/*.ts",
-    "src/app/header/cart.tsx"
+    "src/app/header/cart.tsx",
+    "src/app/api/products/seeder/route.ts"
   ],
   "exclude": ["node_modules"]
 }

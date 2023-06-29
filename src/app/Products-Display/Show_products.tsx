@@ -8,9 +8,9 @@ type All_Products = {
   products: string[];
 };
 async function getProducts() {
-  const raw_data = await fetch("https://dummyjson.com/products?limit=12");
+  const raw_data = await fetch(`${process.env.URL}/api/products`);
   const data = await raw_data.json();
-  return data;
+  return { products: data };
 }
 
 export default async function Show_products() {
