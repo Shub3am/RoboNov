@@ -10,6 +10,7 @@ interface Router {
 async function updateCart(
   productId: number,
   cartId: number,
+  accessToken: string,
   status: string,
   Router: Router,
   setError: Function
@@ -17,7 +18,10 @@ async function updateCart(
   if (status == "authenticated") {
     let result = await fetch("/api/cart/updatecart", {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: {
+        "Content-Type": "application/json",
+        authorization: accessToken,
+      },
       body: JSON.stringify({
         productId: productId,
         cartId: cartId,
@@ -39,13 +43,13 @@ export default function updateCartButton({
   const { data: Session, status } = useSession();
   const [error, setError] = useState("");
   if (status == "authenticated") {
-    const { cartId } = Session.user;
+    const { cartId, accessToken } = Session.user;
     return (
       <>
         {error}
         <button
           onClick={() =>
-            updateCart(productId, Session.user.cartId, status, Router, setError)
+            updateCart(productId, cartId, accessToken, status, Router, setError)
           }
         >
           Add to Cart
