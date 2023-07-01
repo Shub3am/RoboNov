@@ -55,8 +55,8 @@
 
 /* CART */
 .cart {
-  display: flex;
-  align-items: center;
+  display: block;
+  position: relative;
 }
 .cartItem {
   display: flex;
@@ -68,6 +68,24 @@
   background: black;
   width: 30px;
   height: 30px;
+}
+.cartMenu {
+  display: none;
+  position: absolute;
+  background: black;
+  color: white;
+  z-index: 9999;
+}
+.cartMenuOpen {
+  display: block;
+}
+.cartMenu ul {
+  padding: 0;
+}
+.cartMenu li {
+  border-bottom: 1px solid white;
+  padding: 0.5em;
+  list-style: none;
 }
 /* CART */
 

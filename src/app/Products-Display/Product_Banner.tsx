@@ -3,11 +3,10 @@ import Image from "next/image";
 import styles from "./products.module.css";
 import Link from "next/link";
 async function getTopProduct() {
-  const data = await fetch(
-    "https://dummyjson.com/products?limit=5&select=title,thumbnail",
-    { cache: "no-store" }
-  ).then((res) => res.json());
-  return data;
+  const data = await fetch(`${process.env.URL}/api/products?limit=5`, {
+    cache: "no-store",
+  }).then((res) => res.json());
+  return { products: data };
 }
 
 const BannerGenerator = function (
