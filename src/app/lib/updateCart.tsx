@@ -16,7 +16,7 @@ async function updateCart(
   setError: Function
 ) {
   if (status == "authenticated") {
-    let result = await fetch("/api/cart/updatecart", {
+    let result = await fetch("/api/cart/updateCart", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

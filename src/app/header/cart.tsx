@@ -1,6 +1,7 @@
 "use client";
 import styles from "./header.module.css";
 import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 import { useEffect, useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -14,13 +15,27 @@ async function getCart(cartId: number, setCartLength: Function) {
   const cart = await cartAPI.json();
   setCartLength(cart.length);
 }
-async function clearCart(cartId: number) {
-  console.log(cartId);
+async function clearCart(
+  cartId: number,
+  accessToken: string,
+  Router: { refresh: Function; push: Function }
+) {
+  const Result = await fetch("/api/cart/clearCart", {
+    method: "POST",
+    headers: { "Content-Type": "application/json", authorization: accessToken },
+    body: JSON.stringify({ id: cartId }),
+  }).then((res) => res.json());
+  if (Result.success) {
+    Router.refresh();
+  } else {
+    Router.push("/error?error=cartFailed");
+  }
 }
 export default function cart(): React.ReactNode {
   const { data: Session, status } = useSession();
   const [cartLength, setCartLength] = useState(0);
-  const [loggedIn, setLoggedIn] = useState(false);
+  const Router = useRouter();
+  const [loggedIn, setLoggedIn] = useState(false); //checking if user has logged in, if not, displaying empty cart logo
   useEffect(() => {
     if (status == "authenticated") {
       getCart(Session.user.cartId, setCartLength);
@@ -48,7 +63,13 @@ export default function cart(): React.ReactNode {
           }`}
         >
           <ul>
-            <li onClick={() => clearCart(Session.user.cartId)}>Clear Cart</li>
+            <li
+              onClick={() =>
+                clearCart(Session.user.cartId, Session.user.accessToken, Router)
+              }
+            >
+              Clear Cart
+            </li>
             <li>View Cart</li>
           </ul>
         </div>
