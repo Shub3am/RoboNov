@@ -5,14 +5,14 @@ import UpdateCartButton from "@/app/lib/updateCart";
 
 export async function generateMetadata({ params }) {
   const raw_data = await fetch(
-    `https://dummyjson.com/products/${params.Single_Product}`
+    `${process.env.URL}/api/products/${params.Single_Product}`
   ).then((data) => data.json());
 
   return { title: raw_data.title, description: raw_data.description };
 }
 
 export async function generateStaticParams() {
-  const raw_data = await fetch("https://dummyjson.com/products", {
+  const raw_data = await fetch(`${process.env}/api/products/all`, {
     cache: "no-store",
   }).then((data) => data.json());
   const data = raw_data.products.map((product: { title: string }) => {
@@ -23,7 +23,7 @@ export async function generateStaticParams() {
 
 export default async function Main({ params }) {
   const singleProduct = await fetch(
-    `https://dummyjson.com/products/${params.Single_Product}`
+    `${process.env.URL}/api/products/${params.Single_Product}`
   ).then((data) => data.json());
 
   return (

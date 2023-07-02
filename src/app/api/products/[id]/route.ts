@@ -5,7 +5,10 @@ export async function GET(
   request: NextRequest,
   { params }: { params: { id: string } }
 ) {
-  if (typeof Number(params.id) !== null) {
+  if (params.id == "all") {
+    const allProducts = await prisma.products.findMany();
+    return NextResponse.json({ products: allProducts });
+  } else if (!isNaN(params.id)) {
     const singleProduct = await prisma.products.findFirst({
       where: { id: Number(params.id) },
     });
