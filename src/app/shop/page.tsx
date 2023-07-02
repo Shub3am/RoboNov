@@ -2,11 +2,12 @@
 import Image from "next/image";
 import styles from "../Products-Display/products.module.css";
 import Link from "next/link";
+let websiteURL = process.env.URL;
 type All_Products = {
   products: string[];
 };
 async function getProducts() {
-  const raw_data = await fetch("https://dummyjson.com/products");
+  const raw_data = await fetch(`${websiteURL}/api/products/all`);
   const data = await raw_data.json();
   return data;
 }
