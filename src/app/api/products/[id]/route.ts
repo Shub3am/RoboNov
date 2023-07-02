@@ -6,14 +6,21 @@ export async function GET(
   { params }: { params: { id: string } }
 ) {
   if (params.id == "all") {
-    const allProducts = await prisma.products.findMany();
-    return NextResponse.json({ products: allProducts });
+    try {
+      const allProducts = await prisma.products.findMany();
+      return NextResponse.json({ products: allProducts, success: true });
+    } catch (error) {
+      return NextResponse.json({
+        error: "Something Failed At Database Level",
+        success: false,
+      });
+    }
   } else if (!isNaN(params.id)) {
     const singleProduct = await prisma.products.findFirst({
       where: { id: Number(params.id) },
     });
     return NextResponse.json(singleProduct);
   } else {
-    return NextResponse.json("Invalid ID");
+    return NextResponse.json({ error: "Invalid ID", success: false });
   }
 }
