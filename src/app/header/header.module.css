@@ -138,6 +138,8 @@
 /* MOBILE RESPONSIVENESS */
 
 /* ACCOUNT BAR */
+
+/* ACCOUNT BAR | STATE: NOT LOGGED IN */
 .accountBarButton {
   color: white;
   text-decoration: none;
@@ -147,5 +149,40 @@
   background: black;
   padding: 1em;
 }
-
+.accountBarButton {
+  border: 0;
+  background: black;
+  font-size: 1em;
+}
+/* ACCOUNT BAR | STATE: LOGGED IN  */
+.accountBar {
+  display: block;
+}
+.accountMenu {
+  display: block;
+  position: absolute;
+  background: black;
+  color: white;
+}
+.accountMenu li {
+  list-style: none;
+  border-bottom: 1px solid white;
+  padding: 0.25em;
+  font-size: 15px;
+  color: white;
+}
+.accountMenu a {
+  color: white;
+  text-decoration: none;
+}
+.accountMenu button {
+  border: 0;
+  background: black;
+  font-size: 15px;
+  padding-left: 0;
+  color: white;
+}
+.accountMenu ul {
+  padding: 0 0.5em;
+}
 /* ACCOUNT BAR */

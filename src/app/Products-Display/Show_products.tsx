@@ -8,9 +8,10 @@ type All_Products = {
   products: string[];
 };
 async function getProducts() {
-  const raw_data = await fetch(`${process.env.URL}/api/products`);
-  const data = await raw_data.json();
-  return { products: data };
+  const raw_data = await fetch(`${process.env.URL}/api/products`).then((res) =>
+    res.json()
+  );
+  return { products: raw_data };
 }
 
 export default async function Show_products() {
@@ -18,7 +19,7 @@ export default async function Show_products() {
 
   const ShowProducts = AllProducts.products.map((product: any) => {
     //Issue Thrown here from typescript for Parameter not assignable, so using 'any'
-    if (product.id <= 8) {
+    if (product.id >= 11 && product.id <= 20) {
       //Rendering Only 8 Products to Avoid Clutter
       return (
         <div className={styles.singleItem} key={product.id}>
