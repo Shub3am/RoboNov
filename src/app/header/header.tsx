@@ -4,13 +4,16 @@ import AccountBar from "./accountBar";
 import MobileNav from "./mobileNavigation";
 import SearchBar from "./SearchBar";
 import Cart from "./cart";
+import Link from "next/link";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import Navigation from "./navigation";
 export default function Header() {
   return (
     <div className={styles.header_container}>
       <div className={styles.header_logo}>
-        <Image src="/logo.svg" alt="logo" width={75} height={100} />
+        <Link href={process.env.URL}>
+          <Image src="/logo.svg" alt="logo" width={75} height={100} />
+        </Link>
       </div>
       <div className={styles.header_menu}>
         <Navigation />

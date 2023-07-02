@@ -11,6 +11,22 @@
 }
 
 /* MAIN CONTAINER CONFIGS */
+/* MAIN CONTAINER MOBILE CONFIGS */
+@media all and (max-width: 768px) {
+  .container {
+    display: flex;
+    width: 80%;
+    padding: 1em;
+    border: 1px solid rgba(126, 122, 122, 0.479);
+    margin: 0.5em auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+}
+
+/* MAIN CONTAINER CONFIGS */
+
 /* AUTH FORM CONFIGS */
 .authForm {
   display: flex;
@@ -43,4 +59,3 @@
   margin: 0.25em;
   color: white;
 }
-/* AUTH FORM CONFIGS */

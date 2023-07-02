@@ -95,6 +95,7 @@
   .showProducts {
     display: grid;
     padding: 0;
+    width: 85%;
     grid-template-columns: 1fr;
   }
 }
@@ -146,3 +147,17 @@
   opacity: 0.5;
 }
 /* PRODUCT BANNER CONFIGS */
+
+/* PRODUCT BANNER MOBILE CONFIGS */
+@media all and (max-width: 768px) {
+  .banner {
+    margin-top: 0;
+  }
+  .firstRow,
+  .secondRow {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+}
+/* PRODUCT BANNER MOBILE CONFIGS */
