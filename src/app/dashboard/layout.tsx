@@ -7,9 +7,11 @@ export default function Layout(props: {
   return (
     <>
       <div className={styles.container}>
-        {props.children}
-        {false ? props.profile : props.orders}
-        {props.orders}
+        <div>{props.children}</div>
+        <div className={styles.content}>
+          {false ? props.profile : props.orders}
+          {props.orders}
+        </div>
       </div>
     </>
   );

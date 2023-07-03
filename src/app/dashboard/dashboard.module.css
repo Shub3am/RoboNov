@@ -1,0 +1,19 @@
+.container {
+  display: grid;
+  /* grid-template-rows: 1fr 2fr; */
+  grid-template-columns: 20% 80%;
+  align-items: center;
+  grid-template-rows: 80vh;
+}
+
+.sideBarMenu li {
+  font-size: 1.25em;
+  list-style: none;
+  padding: 1em 1.5em;
+  background: black;
+  border-bottom: 1px solid white;
+  color: white;
+}
+.content {
+  margin: 0 1em;
+}
