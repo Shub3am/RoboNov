@@ -159,7 +159,7 @@
   display: block;
 }
 .accountMenu {
-  display: block;
+  display: none;
   position: absolute;
   background: black;
   color: white;
@@ -184,5 +184,8 @@
 }
 .accountMenu ul {
   padding: 0 0.5em;
+}
+.active {
+  display: block;
 }
 /* ACCOUNT BAR */

@@ -7,6 +7,7 @@ import { VscAccount } from "react-icons/vsc";
 import { signIn, signOut, useSession } from "next-auth/react";
 export default function accountBar() {
   const { data: Session, status } = useSession();
+  const [isMenuActive, setMenuActive] = useState(false);
   const [loggedin, setLoggedin] = useState(false);
   useEffect(() => {
     if (status == "authenticated") {
@@ -18,9 +19,17 @@ export default function accountBar() {
   if (loggedin) {
     const { name, email } = Session.user;
     return (
-      <div className={styles.accountBar}>
+      <div
+        className={styles.accountBar}
+        onMouseOver={() => setMenuActive(true)}
+        onMouseOut={() => setMenuActive(false)}
+      >
         <VscAccount size={25} />
-        <div className={styles.accountMenu}>
+        <div
+          className={`${styles.accountMenu} ${
+            isMenuActive ? styles.active : ""
+          }`}
+        >
           <ul>
             <li>
               <Link href="/dashboard">My Account</Link>

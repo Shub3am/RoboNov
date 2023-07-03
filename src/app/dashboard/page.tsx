@@ -6,7 +6,15 @@ export default function Account() {
   const { data: Session, status } = useSession();
 
   if (status == "authenticated") {
-    return <h1>Welcome {Session.user.name}, You Are In!</h1>;
+    return (
+      <div>
+        <nav>
+          <li>Dashboard</li>
+          <li>Profile</li>
+          <li>Orders</li>
+        </nav>
+      </div>
+    );
   } else {
     redirect("/auth");
   }
