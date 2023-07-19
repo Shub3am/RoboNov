@@ -1,4 +1,5 @@
 import styles from "./dashboard.module.css";
+import Header from "./Header";
 export default function Layout(props: {
   children: React.ReactNode;
   profile: React.ReactNode;
@@ -7,11 +8,8 @@ export default function Layout(props: {
   return (
     <>
       <div className={styles.container}>
-        <div>{props.children}</div>
-        <div className={styles.content}>
-          {false ? props.profile : props.orders}
-          {props.orders}
-        </div>
+        <div>{Header}</div>
+        <div className={styles.content}>{props.children}</div>
       </div>
     </>
   );
