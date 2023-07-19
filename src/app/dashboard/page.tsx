@@ -9,11 +9,9 @@ export default function Account({ currentState }: { currentState: Function }) {
   if (status == "authenticated") {
     return (
       <div className={styles.sideBarMenu}>
-        <nav>
-          <li>Dashboard</li>
-          <li>Profile</li>
-          <li>Orders</li>
-        </nav>
+        <li>Dashboard</li>
+        <li>Profile</li>
+        <li>Orders</li>
       </div>
     );
   } else {

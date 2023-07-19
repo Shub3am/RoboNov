@@ -1,11 +1,15 @@
 .container {
-  display: grid;
+  /* display: grid; */
   /* grid-template-rows: 1fr 2fr; */
-  grid-template-columns: 20% 80%;
-  align-items: center;
-  grid-template-rows: 80vh;
-}
+  /* grid-template-columns: 20% 80%; */
 
+  /* grid-template-rows: 80vh; */
+}
+.sideBarMenu {
+  display: flex;
+  background: black;
+  justify-content: center;
+}
 .sideBarMenu li {
   font-size: 1.25em;
   list-style: none;
