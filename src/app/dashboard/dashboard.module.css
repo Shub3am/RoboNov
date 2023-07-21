@@ -26,6 +26,12 @@
   animation: fade 0.2s linear;
 }
 
+@media all and (max-width: 767px) {
+  .sideBarMenu {
+    flex-direction: column;
+  }
+}
+
 @keyframes fade {
   0% {
     background: black;
