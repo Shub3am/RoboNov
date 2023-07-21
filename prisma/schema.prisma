@@ -9,8 +9,9 @@ datasource db {
 
 model orders {
   orderid     Int    @id @default(autoincrement())
-  productname String @db.VarChar(255)
+  productid   String @db.VarChar(255)
   customer_id Int
+  customer    users  @relation(fields: [customer_id], references: [id])
 }
 
 model users {
@@ -20,24 +21,24 @@ model users {
   age      Int
   phone    BigInt @unique
   password String @db.VarChar(255)
-  cart  cart?
-  
+  cart     cart?
 
+  orders orders[]
 }
 
 model cart {
-  id       Int    @id @default(autoincrement())
+  id        Int      @id @default(autoincrement())
   productid String[]
-  user_id Int @unique
-  user users @relation(fields: [user_id], references: [id])
+  user_id   Int      @unique
+  user      users    @relation(fields: [user_id], references: [id])
 }
 
 model products {
-  id       Int    @id @default(autoincrement())
-  title String @unique @db.VarChar(255)
+  id          Int    @id @default(autoincrement())
+  title       String @unique @db.VarChar(255)
   description String @db.VarChar(255)
-  price Int
-  rating Int
-  thumbnail String @unique @db.VarChar(255)
-  category String @db.VarChar(255)
+  price       Int
+  rating      Int
+  thumbnail   String @unique @db.VarChar(255)
+  category    String @db.VarChar(255)
 }

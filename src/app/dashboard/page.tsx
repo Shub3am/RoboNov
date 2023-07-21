@@ -7,8 +7,16 @@ export default function Dashboard() {
   const { data: Session, status } = useSession();
 
   if (status == "authenticated") {
-    console.log(status, "status");
-    return <div>Logged In Hun Bhai</div>;
+    console.log(Session, "status");
+    return (
+      <div>
+        <div>
+          <div>
+            <h3>Recent Orders</h3>
+          </div>
+        </div>
+      </div>
+    );
   } else {
     redirect("/auth");
   }
