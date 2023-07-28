@@ -11,15 +11,40 @@ export async function POST(request: NextRequest) {
         const currentCart = await prisma.cart.findFirst({
           where: { id: body.cartId },
         });
+        console.log(currentCart, "------CART");
+        let incrementedCart = currentCart?.productid.map((product) => {
+          if (product.productid == Number(body.productId)) {
+            return { ...product, qty: product.qty + 1 };
+          } else {
+            return product;
+          }
+        });
+        console.log(
+          { ...currentCart, productid: incrementedCart },
+          "------INCREMENTED CART"
+        );
         if (currentCart.productid.includes(String(body.productId))) {
           return NextResponse.json({
             message: "Product Already In Cart",
             success: false,
           });
         } else {
+          let updatedCart = [
+            {
+              productid: body.productId,
+              qty: 1,
+            },
+          ];
           const updateCart = await prisma.cart.update({
             where: { id: body.cartId },
-            data: { productid: { push: String(body.productId) } },
+            data: {
+              productid: [
+                {
+                  productid: String(body.productId),
+                  qty: 1,
+                },
+              ],
+            },
             select: { productid: true },
           });
 
@@ -29,6 +54,7 @@ export async function POST(request: NextRequest) {
           });
         }
       } catch (err) {
+        console.error(err);
         return NextResponse.json({
           message: "Server Error",
           success: false,

@@ -28,7 +28,7 @@ model users {
 
 model cart {
   id        Int      @id @default(autoincrement())
-  productid String[]
+  productid Json[]
   user_id   Int      @unique
   user      users    @relation(fields: [user_id], references: [id])
 }

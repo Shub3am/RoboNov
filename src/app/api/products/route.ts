@@ -7,7 +7,6 @@ export async function GET(request: NextRequest) {
     const products = await prisma.products.findMany({
       where: { id: { lt: Number(limitOption) }, rating: { gt: 3 } }, //sending id's with less than limit option and rating higher than 3
     });
-    console.log(products);
     return NextResponse.json(products);
   } else {
     const products = await prisma.products.findMany({

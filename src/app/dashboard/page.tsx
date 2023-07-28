@@ -7,7 +7,6 @@ export default function Dashboard() {
   const { data: Session, status } = useSession();
 
   if (status == "authenticated") {
-    console.log(Session, "status");
     return (
       <div>
         <div>
