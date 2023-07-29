@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/app/prisma";
 import VerifyRoute from "@/app/lib/verifyRoute";
+
 export async function POST(request: NextRequest) {
   let body: { productId: number; cartId: number } = await request.json();
   let accessToken = request.headers.get("authorization"); //Getting Token from authorization header which we sent with fetch request
@@ -11,8 +12,17 @@ export async function POST(request: NextRequest) {
         const currentCart = await prisma.cart.findFirst({
           where: { id: body.cartId },
         });
+        console.log(body.productId);
         // INCREMENTING EXISITNG PRODUCT QUANTITY
-        if (currentCart.productid.includes(String(body.productId))) {
+        let existingProduct: Boolean = false;
+
+        currentCart?.productid.forEach((product) => {
+          if (product.productid == body.productId) {
+            existingProduct = true;
+          }
+        });
+
+        if (existingProduct) {
           let incrementedCart = currentCart?.productid.map((product) => {
             if (product.productid == Number(body.productId)) {
               return { ...product, qty: product.qty + 1 };
