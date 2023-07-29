@@ -11,39 +11,31 @@ export async function POST(request: NextRequest) {
         const currentCart = await prisma.cart.findFirst({
           where: { id: body.cartId },
         });
-        console.log(currentCart, "------CART");
-        let incrementedCart = currentCart?.productid.map((product) => {
-          if (product.productid == Number(body.productId)) {
-            return { ...product, qty: product.qty + 1 };
-          } else {
-            return product;
-          }
-        });
-        console.log(
-          { ...currentCart, productid: incrementedCart },
-          "------INCREMENTED CART"
-        );
+        // INCREMENTING EXISITNG PRODUCT QUANTITY
         if (currentCart.productid.includes(String(body.productId))) {
-          return NextResponse.json({
-            message: "Product Already In Cart",
-            success: false,
+          let incrementedCart = currentCart?.productid.map((product) => {
+            if (product.productid == Number(body.productId)) {
+              return { ...product, qty: product.qty + 1 };
+            } else {
+              return product;
+            }
           });
+          const incrementedDB = await prisma.cart.update({
+            where: { id: body.cartId },
+            data: { productid: incrementedCart },
+          });
+          return NextResponse.json({
+            message: "Product Quantity Incremented",
+            success: true,
+          }); //Adding New Product to Cart FROM BELOW
         } else {
-          let updatedCart = [
-            {
-              productid: body.productId,
-              qty: 1,
-            },
-          ];
+          let updatedCart = currentCart?.productid;
+          updatedCart.push({ productid: String(body.productId), qty: 1 });
+          console.log(updatedCart, "------UPDATED CART--------------");
           const updateCart = await prisma.cart.update({
             where: { id: body.cartId },
             data: {
-              productid: [
-                {
-                  productid: String(body.productId),
-                  qty: 1,
-                },
-              ],
+              productid: updatedCart,
             },
             select: { productid: true },
           });
