@@ -2,6 +2,7 @@
 import styles from "./header.module.css";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
+import Link from "next/link";
 
 import { useEffect, useState } from "react";
 import { AiOutlineShoppingCart } from "react-icons/ai";
@@ -44,7 +45,7 @@ export default function cart(): React.ReactNode {
       setCartLength(0);
       setLoggedIn(false);
     }
-  }, [status]);
+  }, [status]); //Checking Status of User Auth After Render
   const [cartMenuStatus, togglecartMenu] = useState(false);
   if (loggedIn) {
     return (
@@ -70,7 +71,9 @@ export default function cart(): React.ReactNode {
             >
               Clear Cart
             </li>
-            <li>View Cart</li>
+            <Link href="/cart">
+              <li>View Cart</li>
+            </Link>
           </ul>
         </div>
       </div>
