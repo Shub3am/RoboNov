@@ -29,14 +29,14 @@ export default function CART() {
     let cartInfo = cartData.map((item, index) => {
       return (
         <h1 key={index}>
-          {item.productid}, {item.qty}
+          {item.productid}, {item.productname}, {item.qty}
         </h1>
       );
     });
     console.log(cartData[0]);
     return (
       <div>
-        <div>{cartInfo[0]}</div>
+        <div>{cartInfo}</div>
         <div></div>
       </div>
     );
