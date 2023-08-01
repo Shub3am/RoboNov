@@ -44,7 +44,10 @@ export default async function Show_products() {
             <Link href="/dashboard">
               <button>Buy Now</button>
             </Link>
-            <UpdateCartButton productId={product.id} />
+            <UpdateCartButton
+              productId={product.id}
+              productName={product.title}
+            />
           </div>
         </div>
       );

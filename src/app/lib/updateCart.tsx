@@ -9,6 +9,7 @@ interface Router {
 }
 async function updateCart(
   productId: number,
+  productName: string,
   cartId: number,
   accessToken: string,
   status: string,
@@ -24,6 +25,7 @@ async function updateCart(
       },
       body: JSON.stringify({
         productId: productId,
+        productName: productName,
         cartId: cartId,
       }),
     }).then((res) => res.json());
@@ -38,6 +40,7 @@ async function updateCart(
 
 export default function updateCartButton({
   productId,
+  productName,
 }): React.ReactComponentElement<any> {
   const Router = useRouter();
   const { data: Session, status } = useSession();
@@ -49,7 +52,15 @@ export default function updateCartButton({
         {error}
         <button
           onClick={() =>
-            updateCart(productId, cartId, accessToken, status, Router, setError)
+            updateCart(
+              productId,
+              productName,
+              cartId,
+              accessToken,
+              status,
+              Router,
+              setError
+            )
           }
         >
           Add to Cart
