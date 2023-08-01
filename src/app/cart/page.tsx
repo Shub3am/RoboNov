@@ -10,7 +10,7 @@ import { useEffect, useLayoutEffect } from "react";
 export default function CART() {
   const { data: Session, status } = useSession();
   const [cartData, setCart] = useState([]);
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (status == "authenticated") {
       const getCartData = fetch("/api/cart", {
         method: "POST",
@@ -25,15 +25,18 @@ export default function CART() {
       }
     }
   }, [status]);
-  if (cartData.length) {
+  if (status == "authenticated" && cartData.length) {
     let cartInfo = cartData.map((item, index) => {
-      return <h1 key={index}>{item}</h1>;
+      return (
+        <h1 key={index}>
+          {item.productid}, {item.qty}
+        </h1>
+      );
     });
-    let s = cartInfo[0];
-    console.log(s, "yeh");
+    console.log(cartData[0]);
     return (
       <div>
-        <div>{s}</div>
+        <div>{cartInfo[0]}</div>
         <div></div>
       </div>
     );
