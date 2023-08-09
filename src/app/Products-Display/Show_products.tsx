@@ -47,6 +47,7 @@ export default async function Show_products() {
             <UpdateCartButton
               productId={product.id}
               productName={product.title}
+              productPrice={product.price}
             />
           </div>
         </div>

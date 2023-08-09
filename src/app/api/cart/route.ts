@@ -9,7 +9,8 @@ export async function POST(Request: NextRequest) {
         where: { id: body.id },
         select: { productid: true },
       });
-      return NextResponse.json(cartLength.productid);
+      console.log(cartLength.produ);
+      return NextResponse.json(cartLength.productid); //productid is JSON array which contains all the products
     } catch (err) {
       if (err.code === "P2025") {
         return NextResponse.json({ error: "No Cart Found" });

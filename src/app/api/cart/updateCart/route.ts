@@ -3,17 +3,26 @@ import { prisma } from "@/app/prisma";
 import VerifyRoute from "@/app/lib/verifyRoute";
 
 export async function POST(request: NextRequest) {
-  let body: { productId: number; cartId: number; productName: string } =
-    await request.json();
+  let body: {
+    productId: number;
+    cartId: number;
+    productName: string;
+    productPrice: number;
+  } = await request.json();
   let accessToken = request.headers.get("authorization"); //Getting Token from authorization header which we sent with fetch request
   let verifyToken = await VerifyRoute(accessToken); //Verifying with jsonwebtoken library
   if (accessToken && verifyToken) {
-    if (body.cartId && body.productId && body.productName) {
+    if (
+      body.cartId &&
+      body.productId &&
+      body.productName &&
+      body.productPrice
+    ) {
       try {
         const currentCart = await prisma.cart.findFirst({
           where: { id: body.cartId },
         });
-        console.log(body.productId);
+
         // INCREMENTING EXISITNG PRODUCT QUANTITY
         let existingProduct: Boolean = false;
 
@@ -45,6 +54,7 @@ export async function POST(request: NextRequest) {
             productid: String(body.productId),
             qty: 1,
             productname: String(body.productName),
+            productprice: body.productPrice,
           });
           console.log(updatedCart, "------UPDATED CART--------------");
           const updateCart = await prisma.cart.update({

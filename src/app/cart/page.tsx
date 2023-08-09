@@ -3,6 +3,8 @@ import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { redirect } from "next/navigation";
 import { useEffect, useLayoutEffect } from "react";
+import Link from "next/link";
+import styles from "./cart.module.css";
 // function getCart(cartId: Number) {
 //   return getCartData;
 // }
@@ -26,17 +28,39 @@ export default function CART() {
     }
   }, [status]);
   if (status == "authenticated" && cartData.length) {
-    let cartInfo = cartData.map((item, index) => {
-      return (
-        <h1 key={index}>
-          {item.productid}, {item.productname}, {item.qty}
-        </h1>
-      );
-    });
-    console.log(cartData[0]);
+    let cartTable = cartData.map(
+      (
+        item,
+        index
+      ): {
+        item: { productid: Number; productname: String; qty: Number };
+        index: Number;
+      } => {
+        return (
+          <tr key={index}>
+            <th>{item.productid}</th>
+
+            <th>{item.productname}</th>
+
+            <th>{item.qty}</th>
+            <th>{item.productprice}</th>
+          </tr>
+        );
+      }
+    );
     return (
-      <div>
-        <div>{cartInfo}</div>
+      <div className={styles.container}>
+        <div>
+          <table className={styles.productTable}>
+            <tr>
+              <th>Product ID</th>
+              <th>Product Name</th>
+              <th>Quantity</th>
+              <th>Price</th>
+            </tr>
+            {cartTable}
+          </table>
+        </div>
         <div></div>
       </div>
     );
