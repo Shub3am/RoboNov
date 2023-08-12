@@ -16,3 +16,29 @@
   padding: 1em;
   font-size: 1.25em;
 }
+
+.productBill {
+  width: 80%;
+}
+.productBillContainer {
+  width: max-content;
+  font-size: 1.25em;
+  padding: 1em;
+  border: 5px double grey;
+}
+.productBill table th:not(:last-child),
+.productBill table td {
+  border: 1px dotted grey;
+  padding: 0.5em;
+}
+.orderButton {
+  display: flex;
+  margin: auto;
+}
+.productBill button {
+  padding: 0.5em;
+
+  background: black;
+  color: white;
+  font-size: 1em;
+}
