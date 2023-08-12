@@ -76,6 +76,10 @@
   color: white;
   z-index: 9999;
 }
+.cartMenuItems a {
+  color: white;
+  text-decoration: none;
+}
 .cartMenuOpen {
   display: block;
 }

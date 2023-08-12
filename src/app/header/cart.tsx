@@ -63,7 +63,7 @@ export default function cart(): React.ReactNode {
             cartMenuStatus ? styles.cartMenuOpen : ""
           }`}
         >
-          <ul>
+          <ul className={styles.cartMenuItems}>
             <li
               onClick={() =>
                 clearCart(Session.user.cartId, Session.user.accessToken, Router)
