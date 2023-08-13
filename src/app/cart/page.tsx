@@ -9,13 +9,6 @@ import styles from "./cart.module.css";
 //   return getCartData;
 // }
 
-async function getLocalTax(latitude, longitude) {
-  let tax = await fetch(
-    `https://api.precisely.com/localtax/v1/tax/General/bylocation?latitude=${latitude}&longitude=${longitude}&purchaseAmount=100`
-  ).then((x) => x.json());
-  console.log(tax);
-}
-
 export default function CART() {
   const { data: Session, status } = useSession();
   const [cartData, setCart] = useState([]);
@@ -37,9 +30,7 @@ export default function CART() {
   if (status == "authenticated" && cartData.length) {
     let total: { amount: Number; items: Number } = { amount: 0, items: 0 };
     let tax = 0;
-    navigator.geolocation.getCurrentPosition(async function (location) {
-      await getLocalTax(location.coords.latitude, location.coords.longitude);
-    });
+
     let cartTable = cartData.map(
       (
         item,
@@ -83,21 +74,21 @@ export default function CART() {
         <div className={styles.productBill}>
           <div className={styles.productBillContainer}>
             <table>
-              <tbody>
-                <tr>
-                  <th>Order Details</th>
-                </tr>
-                <tr>
-                  <th>Totat Items:</th>
-                  <td>{total.items}</td>
-                </tr>
-                <tr>
-                  <th>Total Amount:</th>
-                  <th>Taxes</th>
-                  <td>{tax}</td>
-                  <td>{total.amount}$</td>
-                </tr>
-              </tbody>
+              <tr>
+                <th>Order Details</th>
+              </tr>
+              <tr>
+                <th>Totat Items:</th>
+                <td>{total.items}</td>
+              </tr>
+              <tr>
+                <th>Total Amount:</th>
+                <td>{total.amount}</td>
+              </tr>
+              <tr>
+                <th>Taxes:</th>
+                <td>{(total.amount * 8) / 100}$</td>
+              </tr>
             </table>
             <div className={styles.orderButton}>
               <button>Place Order</button>
