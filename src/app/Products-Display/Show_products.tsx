@@ -8,9 +8,9 @@ type All_Products = {
   products: string[];
 };
 async function getProducts() {
-  const raw_data = await fetch(`${process.env.URL}/api/products`).then((res) =>
-    res.json()
-  );
+  const raw_data = await fetch(`${process.env.URL}/api/products`, {
+    cache: "no-cache",
+  }).then((res) => res.json());
   return { products: raw_data };
 }
 

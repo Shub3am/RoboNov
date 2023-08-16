@@ -60,7 +60,7 @@ export default function CART() {
     );
     return (
       <div className={styles.container}>
-        <div>
+        <div className={styles.productTableContainer}>
           <table className={styles.productTable}>
             <tr>
               <th>Product ID</th>

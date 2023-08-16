@@ -7,7 +7,7 @@
 
 .productTable {
   display: block;
-  height: 80vh;
+  height: 70vh;
   overflow-y: scroll;
   /* border: 0.1px dashed grey; */
 }
@@ -42,3 +42,25 @@
   color: white;
   font-size: 1em;
 }
+
+/* MOBILE RESPONSIVENESS */
+@media all and (max-width: 767px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+  .productTable {
+    margin-bottom: 1em;
+  }
+  .productTable th {
+    font-size: 1em;
+    padding: 0.5em;
+  }
+  .productTableContainer {
+    width: 90%;
+  }
+  .productBillContainer {
+    margin: 0 auto;
+    font-size: 1em;
+  }
+}
+/* END */

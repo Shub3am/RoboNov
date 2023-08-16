@@ -1,6 +1,8 @@
 /* eslint-disable react/jsx-key */
 import Image from "next/image";
 import styles from "../Products-Display/products.module.css";
+
+import UpdateCartButton from "../lib/updateCart";
 import Link from "next/link";
 let websiteURL = process.env.URL;
 type All_Products = {
@@ -40,7 +42,11 @@ export default async function Show_products() {
           <Link href="okmamu">
             <button>Buy Now</button>
           </Link>
-          <button>Add to Cart</button>
+          <UpdateCartButton
+            productId={product.id}
+            productName={product.title}
+            productPrice={product.price}
+          />
         </div>
       </div>
     );
