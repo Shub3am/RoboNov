@@ -6,6 +6,7 @@ import { useState } from "react";
 interface Router {
   refresh: Function;
   push: Function;
+  replace: Function;
 }
 async function updateCart(
   productId: number,
@@ -33,7 +34,8 @@ async function updateCart(
     }).then((res) => res.json());
 
     if (result.success) {
-      Router.refresh();
+      console.log(window.location);
+      window.location.reload();
     } else {
       setError(result.message);
     }
