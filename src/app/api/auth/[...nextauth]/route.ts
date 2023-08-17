@@ -22,6 +22,7 @@ const handler = NextAuth({
           try {
             if (email && password) {
               //checking if email and password exists on Body or not
+              //WILL MOVE THIS TO ANOTHER ROUTE SOON
               const checkUser = await prisma.users.findUniqueOrThrow({
                 where: { email: email },
                 include: { cart: true },
