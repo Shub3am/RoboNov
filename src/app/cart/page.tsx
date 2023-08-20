@@ -100,7 +100,9 @@ export default function CART() {
               </tr>
             </table>
             <div className={styles.orderButton}>
-              <button>Place Order</button>
+              <Link href="/checkout">
+                <button>Place Order</button>
+              </Link>
             </div>
           </div>
         </div>

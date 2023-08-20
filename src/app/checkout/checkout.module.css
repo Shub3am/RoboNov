@@ -1,0 +1,35 @@
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+/* ORDER FORM */
+.orderForm {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.orderForm h2 {
+  font-size: 1.5em;
+}
+.orderForm form {
+  display: flex;
+  margin: 1em 0;
+  padding: 1em;
+  border: 1px solid grey;
+  flex-direction: column;
+  width: 80%;
+}
+/* ORDER FORM */
+
+/* ORDER FORM ELEMENTS */
+.orderForm input,
+.orderForm label,
+.orderForm select {
+  padding: 1em;
+}
+/* ORDER FORM ELEMENTS */
+
+/* ORDER FORM RESPONSIVENESS */
+
+/* ORDER FORM RESPONSIVENESS */
