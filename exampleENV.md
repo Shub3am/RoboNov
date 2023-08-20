@@ -17,3 +17,8 @@ SECRET="xxxxxxxxxxxx"
 ### Call Back URL
 
 URL="http://localhost:3000/"
+
+### RAZORPAY KEY FOR GATEWAY
+
+key_id: 'YOUR_KEY_ID'
+key_secret: 'YOUR_KEY_SECRET',
