@@ -55,15 +55,20 @@
 
 /* CART */
 .cart {
-  display: block;
+  display: grid;
   position: relative;
+  margin: 0 2em;
+}
+.cartIcon {
+  position: absolute;
 }
 .cartItem {
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 0;
-  transform: translate(-5px, -10px);
+  position: absolute;
+  transform: translate(0.75em, -1em);
   border-radius: 50%;
   background: black;
   width: 30px;

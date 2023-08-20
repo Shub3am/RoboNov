@@ -28,8 +28,11 @@ export default function CART() {
     }
   }, [status]);
   if (status == "authenticated" && cartData.length) {
-    let total: { amount: Number; items: Number } = { amount: 0, items: 0 };
-    let tax = 0;
+    let total: { amount: number; items: number; tax: number } = {
+      amount: 0,
+      items: 0,
+      tax: 0,
+    };
 
     let cartTable = cartData.map(
       (
@@ -44,8 +47,10 @@ export default function CART() {
         };
         index: Number;
       } => {
-        total.amount = total.amount + item.qty * item.productprice;
-        total.items = total.items + item.qty;
+        total.amount = total.amount + item.qty * item.productprice; //Incrementing Value of Amount
+        total.items = total.items + item.qty; //Incrementing Total Items Here
+        total.tax = total.tax + item.productprice * 0.08; //Adding 8% tax of each item
+
         return (
           <tr key={index}>
             <th>{item.productid}</th>
@@ -83,11 +88,15 @@ export default function CART() {
               </tr>
               <tr>
                 <th>Total Amount:</th>
-                <td>{total.amount}</td>
+                <td>{total.amount}$</td>
               </tr>
               <tr>
                 <th>Taxes:</th>
-                <td>{(total.amount * 8) / 100}$</td>
+                <td>{Math.floor(total.tax)}$</td>
+              </tr>
+              <tr>
+                <th>SubTotal:</th>
+                <td>{total.amount + total.tax}$</td>
               </tr>
             </table>
             <div className={styles.orderButton}>

@@ -4,7 +4,9 @@
   justify-items: center;
   margin-top: 2.5em;
 }
-
+.productTableContainer {
+  border: 1px double grey;
+}
 .productTable {
   display: block;
   height: 70vh;

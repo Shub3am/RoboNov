@@ -81,7 +81,9 @@ export default function cart(): React.ReactNode {
   } else {
     return (
       <div className={styles.cart}>
-        <AiOutlineShoppingCart size={25} />
+        <div className={styles.cartIcon}>
+          <AiOutlineShoppingCart size={25} />
+        </div>
         <div className={styles.cartItem}>
           <p>{cartLength}</p>
         </div>
