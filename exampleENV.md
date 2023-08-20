@@ -20,5 +20,5 @@ URL="http://localhost:3000/"
 
 ### RAZORPAY KEY FOR GATEWAY
 
-key_id: 'YOUR_KEY_ID'
-key_secret: 'YOUR_KEY_SECRET',
+KEY_ID= 'YOUR_KEY_ID'
+KEY_SECRET= 'YOUR_KEY_SECRET'
