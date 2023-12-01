@@ -16,7 +16,8 @@ async function updateCart(
   accessToken: string,
   status: string,
   Router: Router,
-  setError: Function
+  setError: Function,
+  redirectUrl: boolean,
 ) {
   if (status == "authenticated") {
     let result = await fetch("/api/cart/updateCart", {
@@ -34,8 +35,7 @@ async function updateCart(
     }).then((res) => res.json());
 
     if (result.success) {
-      console.log(window.location);
-      window.location.reload();
+      (redirectUrl) ? Router.push("/cart"):window.location.reload() //Ternary Operator for Optional Redirect for "Buy Now Button"
     } else {
       setError(result.message);
     }
@@ -43,10 +43,15 @@ async function updateCart(
 }
 
 export default function updateCartButton({
+  buttonName,
   productId,
   productName,
   productPrice,
-}): React.ReactComponentElement<any> {
+  redirectToCart
+}: {buttonName: string,productId:number,
+  productName: string,
+  productPrice : number,
+  redirectToCart: boolean}): React.ReactComponentElement<any> {
   const Router = useRouter();
   const { data: Session, status } = useSession();
   const [error, setError] = useState("");
@@ -65,18 +70,19 @@ export default function updateCartButton({
               accessToken,
               status,
               Router,
-              setError
+              setError,
+              redirectToCart
             )
           }
         >
-          Add to Cart
+          {buttonName}
         </button>
       </>
     );
   } else {
     return (
       <Link href="/auth">
-        <button>Add to Cart</button>
+        <button>{buttonName}</button>
       </Link>
     );
   }

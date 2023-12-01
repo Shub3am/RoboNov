@@ -41,13 +41,19 @@ export default async function Show_products() {
           <div className={styles.productPrice}>
             <p>{product.price}$</p>
 
-            <Link href="/dashboard">
-              <button>Buy Now</button>
-            </Link>
             <UpdateCartButton
+            buttonName="Buy Now"
               productId={product.id}
               productName={product.title}
               productPrice={product.price}
+              redirectToCart={true}
+            />
+            <UpdateCartButton
+            buttonName="Add to Cart"
+              productId={product.id}
+              productName={product.title}
+              productPrice={product.price}
+              redirectToCart={false}
             />
           </div>
         </div>
