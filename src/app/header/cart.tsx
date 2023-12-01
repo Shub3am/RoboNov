@@ -11,7 +11,6 @@ async function getCart(cartId: number, setCartLength: Function) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ id: cartId }),
-    cache: "no-store",
   });
   const cart = await cartAPI.json();
   setCartLength(cart.length);
@@ -19,7 +18,7 @@ async function getCart(cartId: number, setCartLength: Function) {
 async function clearCart(
   cartId: number,
   accessToken: string,
-  Router: { refresh: Function; push: Function }
+  setCartLength: Function
 ) {
   const Result = await fetch("/api/cart/clearCart", {
     method: "POST",
@@ -27,7 +26,7 @@ async function clearCart(
     body: JSON.stringify({ id: cartId }),
   }).then((res) => res.json());
   if (Result.success) {
-    Router.refresh();
+    setCartLength(0)
   } else {
     Router.push("/error?error=cartFailed");
   }
@@ -66,7 +65,7 @@ export default function cart(): React.ReactNode {
           <ul className={styles.cartMenuItems}>
             <li
               onClick={() =>
-                clearCart(Session.user.cartId, Session.user.accessToken, Router)
+                clearCart(Session.user.cartId, Session.user.accessToken, setCartLength)
               }
             >
               Clear Cart
