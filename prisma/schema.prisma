@@ -8,9 +8,13 @@ datasource db {
 }
 
 model orders {
-  orderid     Int    @id @default(autoincrement())
+  orderno     Int    @id @default(autoincrement())
+  paymentid   Int
+  orderid Int
+  ordersignature Int
   productid   String @db.VarChar(255)
   customer_id Int
+  customer_Address String @db.Text
   customer    users  @relation(fields: [customer_id], references: [id])
 }
 
