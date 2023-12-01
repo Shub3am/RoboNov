@@ -43,7 +43,7 @@ export default async function Banner() {
 
   return (
     <div className={styles.banner}>
-      <div className={styles.firstRow}>{firstRow}</div>
+      <div className={`${styles.firstRow}`}>{firstRow}</div>
       <div className={styles.secondRow}>{secondRow}</div>
     </div>
   );

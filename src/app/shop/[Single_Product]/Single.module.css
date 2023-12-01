@@ -16,10 +16,10 @@
 .productprice button {
   font-size: 1em;
   border: 0;
-  background: black;
+  /* background: black; */
   padding: 0.75em 1em;
   border-radius: 10px;
   margin: 0 0.25em;
-  color: white;
+  /* color: white; */
 }
 

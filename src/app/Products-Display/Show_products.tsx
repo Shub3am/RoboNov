@@ -23,7 +23,38 @@ export default async function Show_products() {
       //Rendering Only 8 Products to Avoid Clutter
       return (
         <div className={styles.singleItem} key={product.id}>
-          <Link href={`/shop/${product.id}`} className={styles.productLink}>
+          <div className="group relative block overflow-hidden">
+            <Link href={`/shop/${product.id}`}>
+                <Image
+                src={product.thumbnail}
+                width={100}
+                height={100}
+                className="h-64 w-full object-cover transition duration-500 group-hover:scale-105 sm:h-72"
+                alt={product.title}
+              ></Image></Link>
+
+  <div className="relative border border-gray-100 bg-white p-6">
+    <span
+      className="whitespace-nowrap bg-yellow-400 px-3 py-1.5 text-xs font-medium"
+    >
+      New
+    </span>
+
+    <h3 className="mt-4 text-lg font-medium text-gray-900"><Link href={`/shop/${product.id}`}>{product.title}</Link></h3>
+
+    <p className="mt-1.5 text-sm text-gray-700">{product.price}$</p>
+<div className="mt-4">
+            <UpdateCartButton
+            buttonName="Add to Cart"
+              productId={product.id}
+              productName={product.title}
+              styles="w-full block"
+              productPrice={product.price}
+              redirectToCart={false}
+            /></div>
+  </div>
+</div>
+          {/* <Link href={`/shop/${product.id}`} className={styles.productLink}>
             <div className={styles.productImage}>
               <Image
                 src={product.thumbnail}
@@ -55,7 +86,7 @@ export default async function Show_products() {
               productPrice={product.price}
               redirectToCart={false}
             />
-          </div>
+          </div> */}
         </div>
       );
     }

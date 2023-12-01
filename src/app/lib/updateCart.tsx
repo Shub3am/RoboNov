@@ -47,11 +47,12 @@ export default function updateCartButton({
   productId,
   productName,
   productPrice,
-  redirectToCart
+  redirectToCart,
+  styles,
 }: {buttonName: string,productId:number,
   productName: string,
   productPrice : number,
-  redirectToCart: boolean}): React.ReactComponentElement<any> {
+  redirectToCart: boolean, styles: string}): React.ReactComponentElement<any> {
   const Router = useRouter();
   const { data: Session, status } = useSession();
   const [error, setError] = useState("");
@@ -60,7 +61,7 @@ export default function updateCartButton({
     return (
       <>
         {error}
-        <button
+        <button className={`rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105 ${styles}`}
           onClick={() =>
             updateCart(
               productId,
