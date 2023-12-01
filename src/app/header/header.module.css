@@ -45,7 +45,7 @@
 }
 /* HEADER SEARCHBAR CONFIGS */
 
-@media all and (min-width: 600px) {
+@media all and (min-width: 768px) {
   /* MOBILE-NAVIGATION ON DESKTOP SCREEN CONFIG */
   .header_mobilenavigation {
     display: none;
@@ -99,7 +99,7 @@
 /* CART */
 
 /* MOBILE RESPONSIVENESS */
-@media all and (max-width: 600px) {
+@media all and (max-width: 768px) {
   .header_container {
     display: grid;
     grid-template-columns: 50% 50%;
