@@ -37,14 +37,22 @@ export default async function Main({ params }) {
       <div className={styles.productdetails}>
         <h1>{singleProduct.title}</h1>
         <h4>{singleProduct.description}</h4>
-        <div className={styles.productprice}>
+        <div className={styles.productprice} >
           <h1>Price: {singleProduct.price}$</h1>
           <UpdateCartButton
+          buttonName="Add to Cart"
             productId={singleProduct.id}
             productName={singleProduct.title}
             productPrice={singleProduct.price}
+            redirectToCart={false}
           />
-          <button>Buy Now</button>
+                    <UpdateCartButton
+          buttonName="Buy Now"
+            productId={singleProduct.id}
+            productName={singleProduct.title}
+            productPrice={singleProduct.price}
+            redirectToCart={true}
+          />
         </div>
       </div>
     </div>

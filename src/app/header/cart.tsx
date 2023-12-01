@@ -26,7 +26,7 @@ async function clearCart(
     body: JSON.stringify({ id: cartId }),
   }).then((res) => res.json());
   if (Result.success) {
-    setCartLength(0)
+    window.location.reload()
   } else {
     Router.push("/error?error=cartFailed");
   }
