@@ -55,8 +55,6 @@ function PayUsingRazorPay() {
 export default function checkout() {
   const {cart} = useContext(cartContext)
 
-  
-
   if (cart.length) {
     let total: { amount: number; items: number; tax: number } = {
       amount: 0,

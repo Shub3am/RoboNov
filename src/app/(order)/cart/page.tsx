@@ -11,8 +11,6 @@ import styles from "./cart.module.css";
 
 export default function CART() {
   const { cart, setCart } = useContext(cartContext)
-  console.log(cart, "cart")
-  console.log("hi")
   const router = useRouter()
 
   if (cart.length) {
@@ -55,18 +53,22 @@ export default function CART() {
       <div className={styles.container}>
         <div className={styles.productTableContainer}>
           <table className={styles.productTable}>
+          <tbody>
+    
             <tr>
               <th>Product ID</th>
               <th>Product Name</th>
               <th>Quantity</th>
               <th>Price</th>
             </tr>
-            {cartTable}
+            
+            {cartTable}</tbody>
           </table>
         </div>
         <div className={styles.productBill}>
           <div className={styles.productBillContainer}>
             <table>
+              <tbody>
               <tr>
                 <th>Order Details</th>
               </tr>
@@ -85,7 +87,7 @@ export default function CART() {
               <tr>
                 <th>SubTotal:</th>
                 <td>{total.amount + total.tax}$</td>
-              </tr>
+              </tr></tbody>
             </table>
             <div className={styles.orderButton}>
 

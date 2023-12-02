@@ -11,9 +11,10 @@ export default function Layout({
   }) {
     const { data: Session, status } = useSession();
     const [cart, setCart] = useState([])
-
     useEffect(() => {
+        console.log(status)
         if (status == "authenticated") {
+            if (!cart.length) {
           const getCartData = fetch("/api/cart", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -21,14 +22,14 @@ export default function Layout({
           })
             .then((data) => data.json())
             .then((data) => setCart(data)); //I HATE PROMISES :)
-        } else {
+        } }else {
           if (status == "unauthenticated") {
             redirect("/auth");
           }
         }
       }, [status]);
 
-      console.log(cart)
+
     return (<cartContext.Provider value={{cart, setCart}}>{children}</cartContext.Provider>)
 
 }
