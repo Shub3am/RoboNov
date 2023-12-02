@@ -1,8 +1,8 @@
 "use client";
 import { useSession } from "next-auth/react";
-import { useState } from "react";
-import { redirect } from "next/navigation";
-import { useEffect, useLayoutEffect } from "react";
+import { useRouter } from "next/navigation";
+import { useState, useContext } from "react";
+import cartContext from "../cartContext"
 import Link from "next/link";
 import styles from "./cart.module.css";
 // function getCart(cartId: Number) {
@@ -10,31 +10,19 @@ import styles from "./cart.module.css";
 // }
 
 export default function CART() {
-  const { data: Session, status } = useSession();
-  const [cartData, setCart] = useState([]);
-  useEffect(() => {
-    if (status == "authenticated") {
-      const getCartData = fetch("/api/cart", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: Session.user.cartId }), //Sending CartId to the server
-      })
-        .then((data) => data.json())
-        .then((data) => setCart(data)); //I HATE PROMISES :)
-    } else {
-      if (status == "unauthenticated") {
-        redirect("/auth");
-      }
-    }
-  }, [status]);
-  if (status == "authenticated" && cartData.length) {
+  const { cart, setCart } = useContext(cartContext)
+  console.log(cart, "cart")
+  console.log("hi")
+  const router = useRouter()
+
+  if (cart.length) {
     let total: { amount: number; items: number; tax: number } = {
       amount: 0,
       items: 0,
       tax: 0,
     };
 
-    let cartTable = cartData.map(
+    let cartTable = cart.map(
       (
         item,
         index
@@ -100,9 +88,8 @@ export default function CART() {
               </tr>
             </table>
             <div className={styles.orderButton}>
-              <Link href="/checkout">
-                <button>Place Order</button>
-              </Link>
+
+                <button onClick={()=> router.push("/checkout")}>Place Order</button>
             </div>
           </div>
         </div>
