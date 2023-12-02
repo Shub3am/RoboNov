@@ -1,14 +1,10 @@
 "use client";
 import styles from "./checkout.module.css";
-import { useSession } from "next-auth/react";
-import { useState, useEffect } from "react";
-
-export default function checkout() {
+import cartContext from "../cartContext";
+import { useState, useEffect, useContext } from "react";
 
 
-  const { data: Session, status } = useSession();
-  const [cartData, setCart] = useState([]);
-
+function PayUsingRazorPay() {
   async function displayRazorpay () {
 
     const res = await initializeRazorpay()
@@ -50,28 +46,24 @@ export default function checkout() {
     });
   };
 
-  useEffect(() => {
-    if (status == "authenticated") {
-      const getCartData = fetch("/api/cart", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ id: Session.user.cartId }), //Sending CartId to the server
-      })
-        .then((data) => data.json())
-        .then((data) => setCart(data)); //I HATE PROMISES :)
-    } else {
-      if (status == "unauthenticated") {
-        redirect("/auth");
-      }
-    }
-  }, [status]);
-  if (status == "authenticated" && cartData.length) {
+  return <button onClick={()=> { displayRazorpay()}}
+  >
+    Pay now 
+  </button> 
+}
+
+export default function checkout() {
+  const {cart} = useContext(cartContext)
+
+  
+
+  if (cart.length) {
     let total: { amount: number; items: number; tax: number } = {
       amount: 0,
       items: 0,
       tax: 0,
     };
-    cartData.forEach(
+    cart.forEach(
       (item: {
         productid: Number;
         productname: String;
@@ -83,7 +75,6 @@ export default function checkout() {
         total.tax = total.tax + item.productprice * 0.08; //Adding 8% tax of each item
       }
     );
-    console.log(total);
   }
   return (
     <div className='grid grid-cols-1 md:grid-cols-2'>
@@ -179,10 +170,7 @@ export default function checkout() {
 
 
   </div>
-</div>        <button onClick={()=> { displayRazorpay()}}
-        >
-          Pay now 
-        </button>  </div>
+</div>     <PayUsingRazorPay/>    </div>
     </div>
   );
 }
