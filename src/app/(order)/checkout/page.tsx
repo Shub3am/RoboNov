@@ -6,7 +6,7 @@ import {displayCart} from "../components/cartFunctions";
 interface cartData {
   cartTable: any, cartTotal: {amount: number; items: number; tax: number }
 }
-function PayUsingRazorPay() {
+function PayUsingRazorPay({total_amount}) {
   async function displayRazorpay () {
 
     const res = await initializeRazorpay()
@@ -14,11 +14,11 @@ function PayUsingRazorPay() {
 
     const options = {
       "key": "rzp_test_6f6XqllO6386WJ", // Enter the Key ID generated from the Dashboard
-      "amount": "50000", // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+      "amount": total_amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
       "currency": "INR",
       "name": "RoboNov",
       "description": "Test Transaction",
-      "order_id": "order_N76G7ReabGcTmZ", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      "order_id": "order_N76G7ReabscTmZ", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
       "callback_url":"http://localhost:3000/verify",
       "notes": {
           "address": "India"
@@ -171,6 +171,7 @@ export default function checkout() {
 
       </tbody>
     </table></div>
+    <div><PayUsingRazorPay total_amount={cartData.cartTotal.amount}/></div>
     </div>
   );
 }

@@ -2,6 +2,7 @@ import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "@/app/prisma";
 import Razorpay from "razorpay";
 export async function POST(Request: NextRequest) {
+  const Body: {amount: number} = await Request.json()
   const razorpay = new Razorpay({
     key_id: process.env.KEY_ID,
     key_secret: process.env.KEY_SECRET,

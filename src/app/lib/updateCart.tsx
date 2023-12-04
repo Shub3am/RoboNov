@@ -56,12 +56,13 @@ export default function updateCartButton({
   const Router = useRouter();
   const { data: Session, status } = useSession();
   const [error, setError] = useState("");
+  let btnClass= `rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105 ${styles}`
   if (status == "authenticated") {
     const { cartId, accessToken } = Session.user;
     return (
       <>
         {error}
-        <button className={`rounded bg-yellow-400 p-4 text-sm font-medium transition hover:scale-105 ${styles}`}
+        <button className={btnClass}
           onClick={() =>
             updateCart(
               productId,
@@ -83,7 +84,7 @@ export default function updateCartButton({
   } else {
     return (
       <Link href="/auth">
-        <button>{buttonName}</button>
+        <button className={btnClass}>{buttonName}</button>
       </Link>
     );
   }
