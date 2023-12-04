@@ -1,6 +1,7 @@
 import { NextResponse, NextRequest } from "next/server";
 import { prisma } from "@/app/prisma";
 import Razorpay from "razorpay";
+
 export async function POST(Request: NextRequest) {
   const Body: {amount: number} = await Request.json()
   const razorpay = new Razorpay({
@@ -9,18 +10,23 @@ export async function POST(Request: NextRequest) {
   });
 
   let options = {
-    amount: 50000, // amount in the smallest currency unit
+    amount: Body.amount, // amount in the smallest currency unit
     currency: "INR",
   };
 
-  let data = await razorpay.orders
+  let data: {result: boolean | Object} = await razorpay.orders
     .create(options)
-    .then((res) => {
-      return res;
-    })
+    .then(result => { return {result}})
     .catch((error) => {
-      return `Error: ${error}`;
+      return {result: false, error: error};
     });
-
-  return NextResponse.json(data);
+    console.log(data, 'outside')
+    if (data.result) {
+      console.log(data)
+      let {id, amount, status} = data.result
+    const createOrder = await prisma.orders.create({data: { orderid: id, amount: amount, status: status }}) 
+      return NextResponse.json({id, amount, status}) }
+    else {
+      return NextResponse.json(`Error due to ${data.error}`)
+    }
 }

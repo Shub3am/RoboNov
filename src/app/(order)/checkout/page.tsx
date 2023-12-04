@@ -6,8 +6,11 @@ import {displayCart} from "../components/cartFunctions";
 interface cartData {
   cartTable: any, cartTotal: {amount: number; items: number; tax: number }
 }
-function PayUsingRazorPay({total_amount}) {
+function PayUsingRazorPay({total_amount}: {total_amount: number}) {
   async function displayRazorpay () {
+
+    const registerOrder = await fetch(`${process.env.URL}/api/checkout`, { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({amount: total_amount})
+    }).then(result=> result)
 
     const res = await initializeRazorpay()
 
@@ -17,9 +20,9 @@ function PayUsingRazorPay({total_amount}) {
       "amount": total_amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
       "currency": "INR",
       "name": "RoboNov",
-      "description": "Test Transaction",
-      "order_id": "order_N76G7ReabscTmZ", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-      "callback_url":"http://localhost:3000/verify",
+      "description": "Get Amazing Builds",
+      "order_id": "order_N8BgWN7lkonWnC", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+      "callback_url":"http://localhost:3000/checkout/success",
       "notes": {
           "address": "India"
       },

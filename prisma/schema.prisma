@@ -12,6 +12,8 @@ model orders {
   paymentid   Int
   orderid Int
   ordersignature Int
+  amount Int
+  status String
   productid   String @db.VarChar(255)
   customer_id Int
   customer_Address String @db.Text
