@@ -3,76 +3,81 @@ import styles from "./checkout.module.css";
 import cartContext from "../cartContext";
 import { useState, useEffect, useContext, FunctionComponent } from "react";
 import {displayCart} from "../components/cartFunctions";
+import AddressForm from "./addressForm";
 interface cartData {
   cartTable: any, cartTotal: {amount: number; items: number; tax: number }
 }
-function PayUsingRazorPay({total_amount}: {total_amount: number}) {
-  async function displayRazorpay () {
 
-    const registerOrder = await fetch(`${process.env.URL}/api/checkout`, { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({amount: total_amount})
-    }).then(result=> result)
+function createOrder()
 
-    const res = await initializeRazorpay()
+// function PayUsingRazorPay({total_amount}: {total_amount: number}) {
+//   async function displayRazorpay () {
+
+//     const registerOrder = await fetch(`${process.env.URL}/api/checkout`, { method: "POST", headers: {"Content-Type": "application/json"}, body: JSON.stringify({amount: total_amount})
+//     }).then(result=> result)
+
+//     const res = await initializeRazorpay()
 
 
-    const options = {
-      "key": "rzp_test_6f6XqllO6386WJ", // Enter the Key ID generated from the Dashboard
-      "amount": total_amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
-      "currency": "INR",
-      "name": "RoboNov",
-      "description": "Get Amazing Builds",
-      "order_id": "order_N8BgWN7lkonWnC", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
-      "callback_url":"http://localhost:3000/checkout/success",
-      "notes": {
-          "address": "India"
-      },
-      "theme": {
-          "color": "#3399cc"
-      }
-  };
-  const paymentObject = new window.Razorpay(options); 
-  paymentObject.open();
-  }
+//     const options = {
+//       "key": "rzp_test_6f6XqllO6386WJ", // Enter the Key ID generated from the Dashboard
+//       "amount": total_amount, // Amount is in currency subunits. Default currency is INR. Hence, 50000 refers to 50000 paise
+//       "currency": "INR",
+//       "name": "RoboNov",
+//       "description": "Get Amazing Builds",
+//       "order_id": "order_N8BgWN7lkonWnC", //This is a sample Order ID. Pass the `id` obtained in the response of Step 1
+//       "callback_url":"http://localhost:3000/checkout/success",
+//       "notes": {
+//           "address": "India"
+//       },
+//       "theme": {
+//           "color": "#3399cc"
+//       }
+//   };
+//   const paymentObject = new window.Razorpay(options); 
+//   paymentObject.open();
+//   }
 
-  const initializeRazorpay = () => {
-    return new Promise((resolve) => {
-      const script = document.createElement("script");
-      script.src = "https://checkout.razorpay.com/v1/checkout.js";
-      // document.body.appendChild(script);
+//   const initializeRazorpay = () => {
+//     return new Promise((resolve) => {
+//       const script = document.createElement("script");
+//       script.src = "https://checkout.razorpay.com/v1/checkout.js";
+//       // document.body.appendChild(script);
 
-      script.onload = () => {
-        resolve(true);
-      };
-      script.onerror = () => {
-        resolve(false);
-      };
+//       script.onload = () => {
+//         resolve(true);
+//       };
+//       script.onerror = () => {
+//         resolve(false);
+//       };
 
-      document.body.appendChild(script);
-    });
-  };
+//       document.body.appendChild(script);
+//     });
+//   };
 
-  return <button onClick={()=> { displayRazorpay()}}
-  >
-    Pay now 
-  </button> 
-}
+//   return <button onClick={()=> { displayRazorpay()}}
+//   >
+//     Pay now 
+//   </button> 
+// }
 
 export default function checkout() {
-  const {cart} = useContext(cartContext)
+  const {cart, email, name} = useContext(cartContext)
+  console.log(email)
   const cartData: cartData  = displayCart(cart) //cartTable is functional component here
 
   
   return (
     <div className='grid grid-cols-1 lg:grid-cols-2'>
-
-      <div className="p-6 bg-gray-100 flex items-center justify-center">
+<AddressForm name={name} email={email}/>
+      {/* <div className="p-6 bg-gray-100 flex items-center justify-center">
   <div className="container w-screen lg:w-3/5 mx-auto">
 
-
+  <form>
       <div className="bg-white rounded shadow-lg p-4 px-4 md:p-8 mb-6">
         <div className="grid gap-4 gap-y-2 text-sm grid-cols-1 lg:grid-cols-2">
           <div className="text-gray-600">
-            <p className="font-medium text-lg">Personal Details</p>
+            <p className="font-medium text-lg">Billing Details</p>
             <p>Please fill out all the fields.</p>
           </div>
 
@@ -80,12 +85,12 @@ export default function checkout() {
             <div className="text-sm">
               <div className="md:col-span-5">
                 <label htmlFor="full_name">Full Name</label>
-                <input type="text" name="full_name" id="full_name" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" required/>
+                <input type="text" name="full_name" id="full_name" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" defaultValue={name} required/>
               </div>
 
               <div className="md:col-span-5">
                 <label htmlFor="email">Email Address</label>
-                <input type="text" name="email" id="email" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"  placeholder="email@domain.com" required/>
+                <input type="text" name="email" id="email" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"  placeholder="email@domain.com" defaultValue={email} required/>
               </div>
 
               <div className="md:col-span-3">
@@ -96,6 +101,10 @@ export default function checkout() {
               <div className="md:col-span-2">
                 <label htmlFor="city">City</label>
                 <input type="text" name="city" id="city" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50"  placeholder="" required/>
+              </div>
+              <div className="md:col-span-2">
+              <label htmlFor="phone">Enter your phone number:</label>
+<input type="tel" id="phone" className="h-10 border mt-1 rounded px-4 w-full bg-gray-50" name="phone" pattern="[0-9]{3}-[0-9]{2}-[0-9]{3}" required/>
               </div>
 
               <div className="md:col-span-2">
@@ -124,7 +133,7 @@ export default function checkout() {
                       <line x1="6" y1="6" x2="18" y2="18"></line>
                     </svg>
                   </button>
-                  <button tabIndex="-1" for="show_more" className="cursor-pointer outline-none focus:outline-none border-l border-gray-200 transition-all text-gray-300 hover:text-blue-600">
+                  <button tabIndex="-1" htmlFor="show_more" className="cursor-pointer outline-none focus:outline-none border-l border-gray-200 transition-all text-gray-300 hover:text-blue-600">
                     <svg className="w-4 h-4 mx-2 fill-current" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="18 15 12 9 6 15"></polyline></svg>
                   </button>
                 </div>
@@ -151,12 +160,13 @@ export default function checkout() {
 
             </div>
           </div>
+          
         </div>
-      </div>
+      </div></form>
 
 
   </div>
-</div>  
+</div>   */}
 
 <div className="p-6 ">    <table className=" bg-white m-auto shadow-md rounded-xl">
       <thead>
@@ -174,7 +184,8 @@ export default function checkout() {
 
       </tbody>
     </table></div>
-    <div><PayUsingRazorPay total_amount={cartData.cartTotal.amount}/></div>
+    <div></div>
+    {/* <PayUsingRazorPay total_amount={cartData.cartTotal.amount}/> */}
     </div>
   );
 }

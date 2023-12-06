@@ -9,9 +9,9 @@ datasource db {
 
 model orders {
   orderno     Int    @id @default(autoincrement())
-  paymentid   Int
+  paymentid   Int?
   orderid Int
-  ordersignature Int
+  ordersignature Int?
   amount Int
   status String
   productid   String @db.VarChar(255)
