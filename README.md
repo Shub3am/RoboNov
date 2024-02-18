@@ -1,11 +1,8 @@
-## IN DEVELOPMENT
+## eCommerce App built completely with Next.JS and SSR
 
-## In Progress
-##### 1. User Dashboard
-##### 2. Checkout
-
-
-## THANK YOU FOR VISITING
+Further Milestones:
+Telemetry
+Changing Payment Gateway
 
 #### TO RUN THIS APP ( Make sure You have NodeJS >= 16 Installed)
 ```
